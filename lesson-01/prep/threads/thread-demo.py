@@ -3,7 +3,7 @@ Author: Brother Keers
 Copyright 2023 Brigham Young University Idaho.
 
 This script demonstrates the basics of threading in python. You should think
-about the following questions and discuss them with their team:
+about the following questions and discuss them with your team:
 
 - What can you infer from the output?
 - Why do the results differ when the system is under load?

@@ -1,7 +1,7 @@
 """
 Course: CSE 251 
 Lesson: L01 Prove
-File:   assignment.py
+File:   prove.py
 Author: <Add name here>
 
 Purpose: Drawing with Python Turtle

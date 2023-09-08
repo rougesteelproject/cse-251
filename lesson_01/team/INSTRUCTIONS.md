@@ -12,7 +12,7 @@ Programs can run with and without threads. In the team activity today, you will 
 2. Open the folder `lesson-01/team` and get the program file `team.py` to run. It will create a log file and display that it found 4,306 primes.
     - Note that each time you run the program, a new log file will be created. You can delete any that you don't need.
     - Keep track on how long it takes for the program to run.
-3. Make a copy of the `team.py` program (ie., the name of the new file could be `team-threads.py` for example) and convert that copy to use 1 thread to find the prime numbers. You should get the same results.
+3. Make a copy of the `team.py` program (ie., the name of the new file could be `team_threads.py` for example) and convert that copy to use 1 thread to find the prime numbers. You should get the same results.
     - Keep track on how long it takes for the program to run. How does it compare to step 2 above?
 
 **Stretch Challenge**
@@ -40,7 +40,7 @@ no threads - no prints
 
 ### Sample Solution
 
-When your program is finished, please view the [sample solution](team-solution.py) for this program to compare it to your approach.
+When your program is finished, please view the [sample solution](team_solution.py) for this program to compare it to your approach.
 
 You should work to complete this team activity for the one hour period first, without looking at the sample solution. However, if you have worked on it for at least an hour and are still having problems, you may feel free to use the sample solution to help you finish your program.
 

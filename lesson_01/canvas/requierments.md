@@ -1,12 +1,12 @@
 # Software Used in the Course
 
 
-## **Python 3**
+### **Python 3**
 
 We will be using Python throughout the course. Please ensure that you have version 3.10 or higher; it is preferred to have the latest version of Python. Also, make sure you have the latest update for the version of Python that you are using. For example, version `3.10.0` has issues in this course but version `3.10.9` does not. Python can be [downloaded here](python.org).
  
 
-## Python Videos
+### Python Videos
 
 If any of the concepts or topics in the list below seem unfamiliar to you, you should review them. The following are MicroSoft videos.
 
@@ -24,7 +24,7 @@ If any of the concepts or topics in the list below seem unfamiliar to you, you s
 - [Python dictionaries: realpython](https://realpython.com/lessons/dictionary-python/)
 - [Python slicing](https://www.youtube.com/watch?v=ajrtAuDg3yw)
 
-## Links to Python Articles
+### Links to Python Articles
 
 - [Python.org](https://www.python.org/)
 - [Python lists](https://www.w3schools.com/python/python_lists.asp)
@@ -34,17 +34,17 @@ and [Lists and Tuples in Python](https://realpython.com/courses/lists-tuples-pyt
 - [To learn more about installing modules using the **pip** command](https://docs.python.org/3/installing/index.html#basic-usage)
  
 
-## Visual Studio Code (vscode)
+### Visual Studio Code (vscode)
 
 There are a number of code editors available to programmers. You are free to use any editor that you want. However, the course will use Visual Studio Code as the editor in video examples and during class time. VSCode can be downloaded at [VSCode](https://code.visualstudio.com)
 
-## Python Package in VSCode 
+### Python Package in VSCode 
 
 When you open a Python file, VSCode will want you to install the Python Package from MicroSoft. Please install it.
 
 ![](assets/code-python-package.png)
 
-## Packages to install in Python
+### Packages to install in Python
 
 The course uses the following Python packages that must be installed on your computer. A computer can have more than one version of Python. It is important that these packages are installed on the version of Python that is used in VSCode.
 

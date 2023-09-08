@@ -6,7 +6,7 @@ The python server in this assignment contains details of all of the Star Wars fi
 
 ### Instructions
 
-1. In your "week02/assignment" folder, download the [assignment.py](assignment/assignment.py) file from GitHub.
+1. Download the [prove](../prove/) directory from GitHub.
 2. Your goal is to retrieve the information from the website as fast as you can.
 
 **Coding Instructions**
@@ -15,15 +15,12 @@ The python server in this assignment contains details of all of the Star Wars fi
 - You are not allowed to use any other modules/packages except for the ones used in this assignment.
 - Run the server.py program from a terminal/console program. Simply type `python server.py`. Note that you also need to download the file `data.txt` in order for the server to work. 
 - The only **fixed** or hard coded URL that you can use is TOP_API_URL. Use this URL to retrieve other URLs that you can use to retrieve information from the server.
-- You need to match the output outlined in the decription of the assignment. Note that the names are sorted.
-- You are requied to use a threaded class (inherited from threading.Thread) for this assignment. This object will make the API calls to the server. You can define your class within this Python file (ie., no need to have a seperate file for the class)
+- You need to match the output outlined in the description of the assignment. Note that the names are sorted.
+- You are required to use a threaded class (inherited from threading.Thread) for this assignment. This object will make the API calls to the server. You can define your class within this Python file (ie., no need to have a separate file for the class)
 - Do not add any global variables except for the ones included in this program.
 - The main goal of the program is to create as many threads objects (In different parts of your program) as you can, then start them all, then wait for all of them to finish.
 
-The call to TOP_API_URL will return the following Dictionary(JSON). Do NOT have
-this dictionary hard coded - use the API call to get this. Then you can use
-this dictionary to make other API calls for data.
-
+The call to TOP_API_URL will return the following Dictionary(JSON). Do NOT have this dictionary hard coded use the API call to get this. Then you can use this dictionary to make other API calls for data.
 
 ### Sample Output (Log file)
 
@@ -63,7 +60,7 @@ There are a number of Python packages that can help you make URL calls. We will 
 
 ### Install Package
 
-This package needs to be installed. Read the details on how to install packages in the `resources/software` section of the course. Using pip, the command is `pip install requests`. Using Python, it's `python -m pip install requests`. (Mac users might need to use pip3)
+This package needs to be installed. Read the details on how to install packages in the [Software Used in the Course](../../lesson_01/canvas/requierments.md) page. Using pip, the command is `pip install requests`. Using Python, it's `python -m pip install requests`. (Mac users might need to use pip3)
 
 ### How to make an URL call to the server
 

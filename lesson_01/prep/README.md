@@ -2,7 +2,7 @@
 
 **threads directory**
 
-Review, reverse engineer, and run the `thread-demo.py` to get some hands on practice with threads in Python.
+Review, reverse engineer, and run the `thread_demo.py` to get some hands on practice with threads in Python.
 
 **vs-code-root-demo directory**
 

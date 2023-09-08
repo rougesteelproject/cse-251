@@ -1,4 +1,4 @@
-# Lesson 1
+# Lesson 1: Course Introduction
 
 **Reading is key to doing well in this course. You will be required to read the provided material each week. Take your time and read the material more than once if you don't understand it the first time.**
 
@@ -20,7 +20,7 @@ Section | Content
 
 :key: = Vital concepts that we will continue to build on in coming lessons.
 
-## Course Introduction
+### Course Introduction
 
 For lesson 1 you will be introduced to the topics of parallelism and concurrency. Since this course uses the programming language Python for assignments, we will spend some time reviewing the Python language and Python packages that you will be required to use. Please carefully read the syllabus so you will know how to best allocate your time and focus your efforts. The Syllabus is found in Canvas (I-Learn).
 

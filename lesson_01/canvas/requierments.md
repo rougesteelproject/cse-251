@@ -3,7 +3,7 @@
 
 ### **Python 3**
 
-We will be using Python throughout the course. Please ensure that you have version 3.10 or higher; it is preferred to have the latest version of Python. Also, make sure you have the latest update for the version of Python that you are using. For example, version `3.10.0` has issues in this course but version `3.10.9` does not. Python can be [downloaded here](python.org).
+We will be using Python throughout the course. Please ensure that you have version 3.10 or higher; it is preferred to have the latest version of Python. Also, make sure you have the latest update for the version of Python that you are using. For example, version `3.10.0` has issues in this course but version `3.10.9` does not. Python can be [downloaded here](https://www.python.org/downloads/).
  
 
 ### Python Videos

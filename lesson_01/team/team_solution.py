@@ -4,7 +4,7 @@ Lesson: L01 Team Activity
 File:   team-solution.py
 Author: Brother Comeau
 
-Purpose: Find prime numbers
+Purpose: Find prime numbers.
 """
 
 from datetime import datetime, timedelta

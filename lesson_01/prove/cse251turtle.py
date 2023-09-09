@@ -1,6 +1,7 @@
 """
 Course: CSE 251
-File: cse251Turtle.py
+Lesson: LO1 Prove
+File:   cse251Turtle.py
 Author: Brother Comeau
 
 Purpose: Turtle Class for CSE 251

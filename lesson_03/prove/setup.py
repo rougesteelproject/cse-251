@@ -8,9 +8,10 @@ This file contains functions that will be automatically used by the prove.py
 script to ensure necessary directories and files exist.
 """
 
+import fnmatch
 import os
 import platform
-import fnmatch
+import zipfile
 
 def create_dir(folder):
     """
@@ -42,6 +43,12 @@ def create_images(video_file, folder):
     os.system(command)
 
 
+def extract_ffmpeg():
+    ffmpeg_zip = './library/ffmpeg.zip'
+    if os.path.exists(ffmpeg_zip) and not os.path.exists('./library/ffmpeg') and not os.path.exists('./library/ffmpeg.exe'):
+        with zipfile.ZipFile(ffmpeg_zip, "r") as zip_file:
+            zip_file.extractall('library')
+
 def get_png_file_count(dir_path):
     """Get the file count of png files in a directory.
 
@@ -60,6 +67,9 @@ def get_png_file_count(dir_path):
 
 def setup():
     """ Make sure necessary assignment directories and files exist. """
+
+    # Extract the ffmpeg libraries
+    extract_ffmpeg()
 
     # Create assignment folders
     create_dir('green')

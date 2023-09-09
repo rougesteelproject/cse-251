@@ -3,7 +3,8 @@ Course: CSE 251
 File:   server.py
 Author: Brother Comeau
 
-Instructions
+Instructions:
+
 - In a terminal window, run "python server.py"
 
 Top level url returns the following
@@ -15,7 +16,6 @@ Top level url returns the following
    "vehicles": "http://127.0.0.1:8790/vehicles/", 
    "starships": "http://127.0.0.1:8790/starships/"
 }
-
 """
 
 from http.server import HTTPServer, BaseHTTPRequestHandler

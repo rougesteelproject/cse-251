@@ -1,6 +1,5 @@
 """
 Author: Brother Keers
-Copyright 2023 Brigham Young University Idaho.
 
 This script demonstrates the basics of threading with classes in python. You
 should compare this example to the thread demo from the previous lessons prep

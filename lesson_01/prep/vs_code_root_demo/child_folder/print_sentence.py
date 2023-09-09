@@ -1,5 +1,4 @@
 # Author: Brother Keers
-# Copyright © 2023 Brigham Young University Idaho.
 
 def main():
   # Open the file in read mode.

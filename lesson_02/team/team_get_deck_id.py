@@ -1,7 +1,7 @@
 """
 Course: CSE 251
-Lesson Week: 02 - Team Activity
-File: team_get_deck_id.py
+Lesson: L02 Team Activity
+File:   team_get_deck_id.py
 Author: Brother Comeau
 
 Purpose: Playing Card deck ID
@@ -9,7 +9,6 @@ Purpose: Playing Card deck ID
 Instructions:
 
 - Run this once to get a ID to be used in the team.py program.
-
 """
 
 import requests

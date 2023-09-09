@@ -1,6 +1,5 @@
 """
 Author: Brother Keers
-Copyright 2023 Brigham Young University Idaho.
 
 This script demonstrates the basics of threading in python. You should think
 about the following questions and discuss them with your team:
@@ -20,6 +19,7 @@ def append_letter(ltr_list, ltr, times):
     for _ in range(times):
         ltr_list.append(ltr)
 
+
 def append_letter_simulate_load(ltr_list, ltr, times):
     """ Add a letter to a list of letters `times` amount of times. """
 
@@ -27,6 +27,7 @@ def append_letter_simulate_load(ltr_list, ltr, times):
         ltr_list.append(ltr)
         # Sleep this script for a random amount of time to simulate computer load.
         time.sleep(random.random() * 0.3 + 0.1)
+
 
 def append_letter_with_lock(ltr_list, ltr, times, lock):
     """ Add a letter to a list of letters `times` amount of times. """
@@ -36,9 +37,11 @@ def append_letter_with_lock(ltr_list, ltr, times, lock):
         ltr_list.append(ltr)
     lock.release()
 
+
 def print_section_title(title):
     """ Print text with horizontal rule below it that matches its length """
     print(f'{title}\n{"-" * len(title)}')
+
 
 def main():
     # [ EXAMPLE 1 ]
@@ -114,6 +117,7 @@ def main():
         print(f'{ltr} ', end='')
         if ((i + 1) % 10 == 0):
             print()
+
 
 # Protect the call to main
 if __name__ == '__main__':

@@ -15,7 +15,7 @@ import json
 # # Include cse 251 common Python files
 from cse251 import *
 
-class Request_thread(threading.Thread):
+class Request_Thread(threading.Thread):
 
     def __init__(self, url):
         # Call the Thread class's init function
@@ -41,13 +41,13 @@ class Deck:
 
 
     def reshuffle(self):
-        req = Request_thread(rf'https://deckofcardsapi.com/api/deck/{self.id}/shuffle/')
+        req = Request_Thread(rf'https://deckofcardsapi.com/api/deck/{self.id}/shuffle/')
         req.start()
         req.join()
 
 
     def draw_card(self):
-        req = Request_thread(rf'https://deckofcardsapi.com/api/deck/{self.id}/draw/')
+        req = Request_Thread(rf'https://deckofcardsapi.com/api/deck/{self.id}/draw/')
         req.start()
         req.join()
         if req.response != {}:
@@ -73,12 +73,12 @@ if __name__ == '__main__':
     #        team_get_deck_id.py program once. You can have
     #        multiple decks if you need them
 
-    deck_id = 'ENTER ID HERE'
+    deck_id = 'yzl8g57q8wrj'
 
     deck = Deck(deck_id)
 
     for i in range(55):
         card = deck.draw_endless()
-        print(f'card {i + 1}: {card}', flush=True)
+        print(f'Card {i + 1}: {card}', flush=True)
 
     print()

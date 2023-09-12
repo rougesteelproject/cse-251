@@ -2,10 +2,10 @@
 
 This material is **optional** and is meant to supplement the [reading material](prepare.md) for this lesson. If you find that you are having a hard time grasping concepts from this lesson it may be worth reviewing the material below:
 
-**[threads](../prep/threads/)**
+### [threads](../prep/threads/)
 
 Review, reverse engineer, and run the `thread_demo.py` to get some hands on practice with threads in Python.
 
-**[vs-code-root-demo](../prep/vs_code_root_demo/)**
+### [vs-code-root-demo](../prep/vs_code_root_demo/)
 
 If you are used to automatically running Python scripts with the Play button in VS Code, this demo will allow you to practice correctly running code from the terminal (command line). You can open the `vs-code-root-demo` directory by itself in VS Code, which allows the Play button to work properly, but you should try running the `child-folder/print-sentence.py` script in the terminal with the entire repo open.

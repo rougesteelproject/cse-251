@@ -11,8 +11,8 @@ The website [http://deckofcardsapi.com](http://deckofcardsapi.com) allows us to 
 
 ### Core Requirements
 
-1. Install all of the files for this team activity and run `team_get_deck_id.py` to get an ID for a deck of playing cards. You will be using this ID in your `team.py` code. You only need to run this program once.
-2. Implement the `Request_thread` class where it can be created with a URL and it will return the results. (See example in the reading requirements for this week's lesson)
+1. Run the `team_get_deck_id.py` script from `lesson_02/team` to get an ID for a deck of playing cards. You will be using this ID in your `team.py` code. You only need to run this program once.
+2. Implement the `Request_thread` class where it can be created with a URL and it will return the results. See the example in the reading material for this lesson.
 3. Implement the `Deck` class methods. Make sure that the code in `main()` can run and display card values.
 
 

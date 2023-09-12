@@ -6,7 +6,7 @@
 
 ### Assignment
 
-Download the file [team.py](../team/team.py) to your computer. Place it based on the suggested directory structure of the course. This program creates a word search puzzle, then it solves it. However, the searching for the words is not fast and needs to be improved.
+The program [lesson_03/team.py](../team/team.py) creates a word search puzzle, then it solves it. However, the searching for the words is not fast and needs to be improved.
 
 ### Instructions:
 
@@ -17,9 +17,9 @@ Download the file [team.py](../team/team.py) to your computer. Place it based on
 
 ### Core Requirements
 
-1. Download the `team.py` file and make sure it runs on your computer. The program will display the board before and after finding the words in it. Read the header in the program for any other instructions.
+1. Make sure the [team.py](../team/team.py) file for this lesson works. The program will display the board before and after finding the words in it. Read the header in the program for any other instructions.
 2. Discuss with your team members ideas on how to improve this program with regards to speed.
-3. Make the program faster - use any technique (ie, threads, processes, algorithm analysis, etc...) 
+3. Using any technique (ie, threads, processes, algorithm analysis, etc...)  make the program faster.
 4. Time your changes. What worked and what didn't?  Was it worth the effort?
 
 ### Sample Solution

@@ -6,8 +6,7 @@ The python server in this assignment contains details of all of the Star Wars fi
 
 ### Instructions
 
-1. Download the [prove](../prove/) directory from GitHub.
-2. Your goal is to retrieve the information from the website as fast as you can.
+Using the [lesson_02/prove](../prove/) files you will retrieve data from an API server using threading and the following rules:
 
 **Coding Instructions**
 
@@ -57,8 +56,6 @@ The following is the **required** output of your assignment. Notice that the nam
 ### How to use the requests package
 
 There are a number of Python packages that can help you make URL calls. We will be using the package `requests`.
-
-### Install Package
 
 This package needs to be installed. Read the details on how to install packages in the [Software Used in the Course](../../lesson_01/canvas/requierments.md) page. Using pip, the command is `pip install requests`. Using Python, it's `python -m pip install requests`. (Mac users might need to use pip3)
 

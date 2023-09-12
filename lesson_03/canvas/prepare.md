@@ -18,7 +18,7 @@ Section | Content
 
 ### Overview
 
-This week's lesson is on Python processes and serves as an introduction to analyzing programs for parallelism.
+This lesson we will cover Python processes. This lesson also serves as an introduction to analyzing programs for parallelism.
 
 ### Python Process
 
@@ -139,7 +139,7 @@ In the output, you see that the thread was able to change the global variable wh
 
 ### Process Pool and Map() Function
 
-Please review the [Python documentation](https://docs.python.org/3/library/multiprocessing.html#module-multiprocessing.pool) on the multiprocessing module for in-depth informaiton.
+Please review the [Python documentation](https://docs.python.org/3/library/multiprocessing.html#module-multiprocessing.pool) on the multiprocessing module for in-depth information.
 
 The pool feature of the multiprocessing package allows you to indicate the number of processes that you want to use for a parallel section of your program.
 

@@ -5,120 +5,52 @@ This script demonstrates the basics of threading in python. You should think
 about the following questions and discuss them with your team:
 
 - What can you infer from the output?
-- Why do the results differ when the system is under load?
-- How could we improve this code? *hint* Loop(s).
+- Why do the results differ with or without thread.join()?
 """
 
-import random
+import sys
 import threading
 import time
 
-def append_letter(ltr_list, ltr, times):
-    """ Add a letter to a list of letters `times` amount of times. """
-
-    for _ in range(times):
-        ltr_list.append(ltr)
-
-
-def append_letter_simulate_load(ltr_list, ltr, times):
-    """ Add a letter to a list of letters `times` amount of times. """
-
-    for _ in range(times):
-        ltr_list.append(ltr)
-        # Sleep this script for a random amount of time to simulate computer load.
-        time.sleep(random.random() * 0.3 + 0.1)
+def thread_function(name):
+    print(f'Thread {name} is running')
+    time.sleep(2)
+    print(f'Thread {name} is finished')
 
 
-def append_letter_with_lock(ltr_list, ltr, times, lock):
-    """ Add a letter to a list of letters `times` amount of times. """
+def main(join_threads):
+    # Notify the user of what demo is about to run.
+    if join_threads:
+        print(f'\n{"-" * 18}')
+        print('DEMO: Join threads')
+        print('-' * 18)
+    else:
+        print(f'\n{"-" * 25}')
+        print('DEMO: DO NOT join threads')
+        print('-' * 25)
 
-    lock.acquire()
-    for _ in range(times):
-        ltr_list.append(ltr)
-    lock.release()
+    # Create two threads.
+    t1 = threading.Thread(target=thread_function, args=("Thread-1",))
+    t2 = threading.Thread(target=thread_function, args=("Thread-2",))
 
-
-def print_section_title(title):
-    """ Print text with horizontal rule below it that matches its length """
-    print(f'{title}\n{"-" * len(title)}')
-
-
-def main():
-    # [ EXAMPLE 1 ]
-    # Print the letters using threads.
-    letters = []
-
-    t1 = threading.Thread(target=append_letter, args=(letters, 'A', 10))
-    t2 = threading.Thread(target=append_letter, args=(letters, 'B', 10))
-    t3 = threading.Thread(target=append_letter, args=(letters, 'C', 10))
-
+    # Start the threads.
     t1.start()
     t2.start()
-    t3.start()
 
-    t1.join()
-    t2.join()
-    t3.join()
+    # Join the threads if the user choose to.
+    if join_threads:
+        t1.join()
+        t2.join()
 
-    print_section_title('No lock and no load:')
-    for i, ltr in enumerate(letters):
-        print(f'{ltr} ', end='')
-        if ((i + 1) % 10 == 0):
-            print()
-
-    print()
-
-    # [ EXAMPLE 2 ]
-    # Print the letters using threads under "heavy" computer load.
-
-    letters = []
-
-    t1 = threading.Thread(target=append_letter_simulate_load, args=(letters, 'A', 10))
-    t2 = threading.Thread(target=append_letter_simulate_load, args=(letters, 'B', 10))
-    t3 = threading.Thread(target=append_letter_simulate_load, args=(letters, 'C', 10))
-
-    t1.start()
-    t2.start()
-    t3.start()
-
-    t1.join()
-    t2.join()
-    t3.join()
-
-    print_section_title('No lock and simulated load:')
-    for i, ltr in enumerate(letters):
-        print(f'{ltr} ', end='')
-        if ((i + 1) % 10 == 0):
-            print()
-
-    print()
-
-    # [ EXAMPLE 3 ]
-    # Print the letters using threads with locks.
-
-    letters = []
-
-    lock = threading.Lock()
-
-    t1 = threading.Thread(target=append_letter_with_lock, args=(letters, 'A', 10, lock))
-    t2 = threading.Thread(target=append_letter_with_lock, args=(letters, 'B', 10, lock))
-    t3 = threading.Thread(target=append_letter_with_lock, args=(letters, 'C', 10, lock))
-
-    t1.start()
-    t2.start()
-    t3.start()
-
-    t1.join()
-    t2.join()
-    t3.join()
-
-    print_section_title('Using a Lock (load irrelevant)')
-    for i, ltr in enumerate(letters):
-        print(f'{ltr} ', end='')
-        if ((i + 1) % 10 == 0):
-            print()
+    # Do something else here in the main thread.
+    print('Doing something else in the main thread')
 
 
-# Protect the call to main
-if __name__ == '__main__':
-    main()
+if __name__ == "__main__":
+    # Check the command line arguments for the join flag.
+    join_threads = False
+    if 'join' in sys.argv:
+        join_threads = True
+
+    # Run the actual demo.
+    main(join_threads)

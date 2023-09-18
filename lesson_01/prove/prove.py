@@ -18,7 +18,7 @@ Instructions:
 - Find the "TODO" comment below and add your code that will use threads.
 - You are not allowed to use any other Python modules/packages than the packages
   currently imported below.
-- You can create other functions if needed.
+- You should create new functions as needed instead of modifying existing functions.
 - No global variables.
 
 """

@@ -26,7 +26,7 @@ For lesson 1 you will be introduced to the topics of parallelism and concurrency
 
 ### Preparation Material
 
-This course assumes that you have programmed in Python using classes before. You should already be familiar with the foundational concepts covered in CSE 110, CSE 111, and CSE 210. Please refer to the [Requirements](requierments.md) page for more details and a review of Python.
+This course assumes that you have programmed in Python using classes before. You should already be familiar with the foundational concepts covered in CSE 110, CSE 111, and CSE 210. Please refer to the [Requirements](requirements.md) page for more details and a review of Python.
 
 ### Concurrency and Parallelism
 

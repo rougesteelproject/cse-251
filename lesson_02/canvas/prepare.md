@@ -255,7 +255,7 @@ def thread_func(filename, count):
 **Rules when using locks**
 
 1. Don't over do it. The more locks you add to a program, the less parallel and concurrent it becomes. If you do need to use locks in your code, just use the minimum required. Remember that you don't lock threads, just shared data.
-2. Try to keep the code in the critical section as small and fast as possible. Since only one thread can enter a critical section at a time, all others are waiting. If you have a critical section that takes a long time to execute, then your program will be slow.
+2. Try to keep the code in the critical section as small and fast as possible; treat acquiring and releasing locks like a game of hot potato. Since only one thread can enter a critical section at a time, all others are waiting. If you have a critical section that takes a long time to execute, then your program will be slow.
 3. Try to limit any I/O statements such as accessing a file, writing to disk, print() statements, an so on. The reason for this, it that the thread making the I/O request will be placed on the `blocked` queue. **NEVER** put an `input()` statement in a critical section unless you have a really good reason (And I would like to hear it).
 
 **Semaphore**

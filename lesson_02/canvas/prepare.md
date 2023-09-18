@@ -92,8 +92,8 @@ class Display_Hello(threading.Thread):
     
 
 if __name__ == '__main__':
-	hello1 = Display_Hello(2, 'Hello from thread 2')
-	hello2 = Display_Hello(1, 'Hello from thread 1')
+	hello1 = Display_Hello(1, 'Hello from thread 1')
+	hello2 = Display_Hello(2, 'Hello from thread 2')
 
 	hello1.start()
 	hello2.start()

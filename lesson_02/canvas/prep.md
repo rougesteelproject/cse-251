@@ -5,3 +5,5 @@ This material is **optional** and is meant to supplement the [reading material](
 **[threads](../prep/threads/)**
 
 Review, reverse engineer, and run the `threaded_class_demo.py` to get some hands on practice with threaded classes in Python. It will be helpful to compare this demo to the `thread_demo.py` from the previous lessons prep material.
+
+Run the `thread_lock_demo.py` to see a visualization of what thread locking is doing.

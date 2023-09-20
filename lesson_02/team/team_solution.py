@@ -4,7 +4,7 @@ Lesson: L02 Team Activity
 File:   team-solution.py
 Author: Brother Comeau
 
-Purpose: Playing Card API calls
+Purpose: Make threaded API calls with the Playing Card API http://deckofcardsapi.com
 """
 
 from datetime import datetime, timedelta
@@ -68,11 +68,7 @@ class Deck:
 
 if __name__ == '__main__':
 
-    # TODO - run the program team_get_deck_id.py and insert
-    #        the deck ID here.  You only need to run the 
-    #        team_get_deck_id.py program once. You can have
-    #        multiple decks if you need them
-
+    # DONE: Run the program team_get_deck_id.py ONCE and insert the deck ID here.
     deck_id = 'yzl8g57q8wrj'
 
     deck = Deck(deck_id)

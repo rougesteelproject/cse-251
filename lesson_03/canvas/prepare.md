@@ -24,7 +24,7 @@ This lesson we will cover Python processes. This lesson also serves as an introd
 
 We have been using threads in Python. Threads in Python are limited where only one thread can run at a time because of the GIL. Threads are concurrent but not parallel.
 
-Processes do not have this limit. Each process created in Python contains it's own GIL allowing processes to run on different CPUs on the computer, running concurrently and parallel.
+Processes do not have this limit. Each process created in Python contains it's own GIL allowing processes to run on different CPUs on the computer, running concurrently (subject to being put on the blocked or waiting) and in parallel.
 
 ### Differences Between Threads and Processes Recap
 

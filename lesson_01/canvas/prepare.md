@@ -117,7 +117,11 @@ A thread is the smallest unit managed by the operating system that is scheduled 
 
 Because of the GIL, all threads are running concurrently in your program. The operating system will give each thread a little time slice on the CPU and switch between them quickly giving the appearance that they are all running at the same time.
 
-When you create a process in Python, each process will contain their own instance of a GIL. This allows each process to run in parallel on the computer.
+> Concurrency means executing multiple tasks at the same time but not necessarily simultaneously.
+>
+> [Quote Source](https://medium.com/@itIsMadhavan/concurrency-vs-parallelism-a-brief-review-b337c8dac350)
+
+When you create a process in Python, each process will contain their own instance of a GIL. This allows each process to run in parallel (at the same time) on the computer.
 
 ### Threading Package
 
@@ -224,7 +228,14 @@ This is a non-blocking function call. Start() will start the thread running and 
 
 **join()**
 
-This is a blocking function call. Join() will wait until that thread is finished executing. If the thread is still busy doing something, then join() will not return until it's finished. If the thread never finishes, then your program will hang (deadlock) on `join()`.
+This is a blocking function call. Join() will wait until that thread is finished executing before allowing the program to proceed further. If the thread is still busy doing something, then join() will not return until it's finished. If the thread never finishes, then your program will hang (deadlock) on `join()`. Some common reasons to use join() are:
+
+- **Synchronization:** When you have multiple threads, and one thread depends on the result of another thread's execution, you can use join() to synchronize them. This ensures that the dependent thread doesn't proceed until the thread it's joining has finished its work.
+- **Clean-Up:** If a thread allocates resources (e.g., files, sockets, or database connections), you may want to use join() to wait for the thread to finish its work and release those resources properly.
+- **Deterministic Output:** If you want the threads to produce output in a specific order or if you want to make sure the final result is available before the program exits, join() can help achieve that.
+- **Error Handling:** You may want to wait for threads to complete and check for any exceptions raised during their execution. Using join() allows you to catch and handle exceptions more effectively.
+
+We recommend you get in the habit of using `join()`.
 
 ### In-depth Thread Example
 

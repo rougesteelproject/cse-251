@@ -4,13 +4,11 @@ Lesson: L02 Team Activity
 File:   team.py
 Author: <Add name here>
 
-Purpose: Playing Card API calls
-Website is: http://deckofcardsapi.com
+Purpose: Make threaded API calls with the Playing Card API http://deckofcardsapi.com
 
 Instructions:
 
-- Review instructions in I-Learn.
-
+- Review instructions in Canvas.
 """
 
 from datetime import datetime, timedelta

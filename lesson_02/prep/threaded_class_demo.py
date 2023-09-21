@@ -20,12 +20,17 @@ class CounterThread(threading.Thread):
     A simple class that extends threading.Thread and counts from 0 to 100000
     using threading.
     """
-
+    
     def __init__(self):
         super().__init__()
         self.counter = 0
         self.lock = threading.Lock()
 
+    """
+    NOTE: This acts as the `target` for your thread. When you use a threaded class
+    calling start() on the thread will automatically call run(). Any `args` you
+    need should have been taken care of in the constructor.
+    """
     def run(self):
         for _ in range(100000):
             with self.lock:

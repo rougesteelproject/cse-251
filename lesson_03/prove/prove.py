@@ -8,12 +8,11 @@ Purpose: Video Frame Processing
 
 Instructions:
 
-- Follow the instructions found in Canvas for this assignment
+- Follow the instructions found in Canvas for this assignment.
 - No other packages or modules are allowed to be used in this assignment.
   Do not change any of the from and import statements.
-- Only process the given MP4 files for this assignment
+- Only process the given MP4 files for this assignment.
 - Do not forget to complete any TODO comments.
-
 """
 
 from matplotlib.pylab import plt  # load plot library

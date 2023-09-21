@@ -2,11 +2,11 @@
 
 This material is **optional** and is meant to supplement the [reading material](prepare.md) for this lesson. If you find that you are having a hard time grasping concepts from this lesson it may be worth reviewing the material below:
 
-### [thread_demo](../prep/thread_demo.py)
+### [thread_demo.py](../prep/thread_demo.py)
 
 Review, reverse engineer, and run the `thread_demo.py` to get some hands on practice with threads in Python.
 
-### [thread_lock_demo](../prep/thread_lock_demo/py)
+### [thread_lock_demo.py](../prep/thread_lock_demo/py)
 
 Run the `thread_lock_demo.py` to see a visualization of what thread locking is doing.
 

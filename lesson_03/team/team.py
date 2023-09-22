@@ -1,15 +1,14 @@
 """
-Course: CSE 251
-Lesson Week: 03
-File: team.py
-Author: Brother Comeau
+Course: CSE 251 
+Lesson: L02 Team Activity
+File:   team.py
+Author: <Add name here>
 
 Purpose: Team Activity: 
 
 Instructions:
 
-- Review instructions in I-Learn
-
+- Review instructions in Canvas.
 """
 
 import random

@@ -49,6 +49,7 @@ def extract_ffmpeg():
         with zipfile.ZipFile(ffmpeg_zip, "r") as zip_file:
             zip_file.extractall('library')
 
+
 def get_png_file_count(dir_path):
     """Get the file count of png files in a directory.
 
@@ -81,3 +82,7 @@ def setup():
         create_images('elephants.mp4', 'elephant')
     if get_png_file_count('green') < 300:
         create_images('green.mp4', 'green')
+
+
+if __name__ == '__main__':
+    setup()

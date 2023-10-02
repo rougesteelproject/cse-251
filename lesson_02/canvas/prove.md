@@ -12,7 +12,7 @@ Using the [lesson_02/prove](../prove/) files you will retrieve data from an API 
 
 - Each API call must only retrieve one piece of information
 - You are not allowed to use any other modules/packages except for the ones used in this assignment.
-- Run the server.py program from a terminal/console program. Simply type `python server.py`. Note that you also need to download the file `data.txt` in order for the server to work. 
+- Run the `server.py` program from a terminal/console program. Simply type `python server.py` or `python3 server.py` depending on your operating system; some may even be `py server.py` instead. **NOTE:** The play button will not work for this assignment! You must learn to run commands via the console/terminal, ensuring you are in the correct directory manually.
 - The only **fixed** or hard coded URL that you can use is TOP_API_URL. Use this URL to retrieve other URLs that you can use to retrieve information from the server.
 - You need to match the output outlined in the description of the assignment. Note that the names are sorted.
 - You are required to use a threaded class (inherited from threading.Thread) for this assignment. This object will make the API calls to the server. You can define your class within this Python file (ie., no need to have a separate file for the class)

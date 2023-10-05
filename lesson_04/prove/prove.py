@@ -48,12 +48,10 @@ class Car():
 
         # Sleep a little.  Last statement in this for loop - don't change
         time.sleep(random.random() / (SLEEP_REDUCE_FACTOR))
-
-        # Display the car that has just be created in the terminal
-        self.display()
            
-    def display(self):
-        print(f'{self.make} {self.model}, {self.year}')
+    def info(self):
+        """ Helper function to quickly get the car information. """
+        return f'{self.make} {self.model}, {self.year}'
 
 
 class Queue251():
@@ -142,7 +140,7 @@ def main():
 
     xaxis = [i for i in range(1, MAX_QUEUE_SIZE + 1)]
     plot = Plots()
-    plot.bar(xaxis, queue_stats, title=f'{sum(queue_stats)} Produced: Count VS Queue Size', x_label='Queue Size', y_label='Count')
+    plot.bar(xaxis, queue_stats, title=f'{sum(queue_stats)} Produced: Count VS Queue Size', x_label='Queue Size', y_label='Count', filename='Production count vs queue size.png')
 
 
 

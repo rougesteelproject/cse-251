@@ -5,3 +5,11 @@ This material is **optional** and is meant to supplement the [reading material](
 **[Examples](../prep/examples/)**
 
 These are the 5 examples from the [reading material](prepare.md). Please review, reverse engineer, and run them to get a better understanding of Queues, Locks, and Semaphores.
+
+**Queues**
+
+You should review and reverse engineer the following files to better understand Queues. Each file has a header comment that further explains the file.
+
+- [Queue with Single Thread](../prep/queue_single_thread.py)
+- [Queue with Multiple Threads](../prep/queue_multiple_thread.py)
+- [Queue with Matching Thread Count](../prep/queue_matching_threads.py)

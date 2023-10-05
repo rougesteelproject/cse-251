@@ -4,15 +4,16 @@ Section | Content
 --- | ---
 1   | [Overview](#overview)
 2   | [Review of what is Shared Between Threads](#review-of-what-is-shared-between-threads)
-3   | [Queue](#queue)
-4   | [Queue Deadlock Situation](#queue-deadlock-situation)
-5   | [Review of Locks](#review-of-locks)
-5.1 | [Example 1](#example-1)
-5.1 | [Example 2](#example-2)
-5.1 | [Example 3](#example-3)
-5.1 | [Example 4](#example-4)
-5.1 | [Example 5](#example-5)
-6   | [Semaphores](#semaphores)
+3   | [Queue](#queue) :key:
+3.2 | [Queue vs Multiprocessing Queue](#queue-vs-multiprocessing-queue) :key:
+3.3 | [Queue Deadlock Situation](#queue-deadlock-situation) :key:
+4   | [Review of Locks](#review-of-locks)
+4.1 | [Example 1](#example-1)
+4.1 | [Example 2](#example-2)
+4.1 | [Example 3](#example-3)
+4.1 | [Example 4](#example-4)
+4.1 | [Example 5](#example-5)
+5   | [Semaphores](#semaphores) :key:
 
 :key: = Vital concepts that we will continue to build on in coming lessons.
 
@@ -126,6 +127,9 @@ Thread: two
 Thread: three
 All work completed
 ```
+### Queue vs Multiprocessing Queue
+
+Please note that we are not currently talking about the [multiprocessing.Queue](https://docs.python.org/3/library/multiprocessing.html#pipes-and-queues). We will revisit [processes](https://docs.python.org/3/library/multiprocessing.html) (multiprocessing) and discuss how we can actually communicate between processes in [Lesson 9](../../lesson_09/canvas/prepare.md).
 
 ### Queue Deadlock Situation
 
@@ -374,7 +378,7 @@ Output:
 
 ### Semaphores
 
-The information covered in this section is summarized from the following sources:
+The information covered in this section is summarized from the following sources and Bard AI:
 
 - [Thread Semaphore Document](https://docs.python.org/3/library/threading.html#semaphore-objects)
 - [Wikipedia page](https://en.wikipedia.org/wiki/Semaphore_(programming))
@@ -403,6 +407,16 @@ sem.release()
 Each time `acquire()` is called, two outcomes are possible. 
 
 1. If the semaphore count is zero, then that thread will be suspended.
-2. If the count is >0, then the count is decreased by one and the thread gains access to the protected code. 
+2. If the count is > 0, then the count is decreased by one and the thread gains access to the protected code. 
  
-When a thread calls `release()` on the semaphore, the count is increased by one and the operating system will "wake up" any threads waiting on the semaphore. Having a thread wait on a semaphore that is never `released()` is a deadlock situation. Semaphores are often used with locks. A semaphore of size 1 is the same as a lock.
+When a thread calls `release()` on the semaphore, the count is increased by one and the operating system will *wake up* any threads waiting on the semaphore. Having a thread wait on a semaphore that is never `released()` is a deadlock situation. Keep the following **important** rules in mind:
+
+- Semaphores are often used with locks.
+- A semaphore of size 1 is the same as a lock.
+- You can call `release()` on a semaphore which increases the count by 1 without calling `acquire()`, which would would have decreased the count by 1; be careful doing this.
+
+Semaphores can be used for a variety of purposes, but some common use cases include:
+
+- Limiting concurrent connections to a server. For example, a web server might use a semaphore to limit the number of concurrent connections that it can handle at a time. This can help to prevent the server from becoming overloaded and crashing.
+- Limiting concurrent file operations on a hard drive. For example, a file system might use a semaphore to limit the number of concurrent read and write operations that can be performed on a file at a time. This can help to prevent the file system from becoming corrupted.
+- Limiting concurrent calculations. For example, a scientific computing library might use a semaphore to limit the number of concurrent calculations that can be performed at a time. This can help to prevent the calculations from interfering with each other and producing inaccurate results.

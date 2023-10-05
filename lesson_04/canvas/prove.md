@@ -31,9 +31,28 @@ The [prove.py](../prove/prove.py) file for this lesson contains the following cl
 - Your goal is to create `CARS_TO_PRODUCE` many cars. The Dealer thread must not know how many cars will be produced by the factory.
 - You will need two semaphores to properly implement this assignment. Don't use a Bounded Semaphore. Do not use any arguments for the method acquire() when using semaphores. Also, when using semaphores, do not use the **_value** attribute.
 
-### Plot created by your program. 
+Here is an example of the final log you should have for this assignment (your wording may/will differ):
 
-**Before** the Dealership takes a car from the queue, it uses `size()` to get the size of the queue and updates the `queue_stats` list. Here is an example of a plot (Your plot might/will look different). Each bar represents the size of the queue while the program is running. From this plot, the program had a full queue of size 10 during most of the execution time.
+```
+21:31:33| Factory created: Ford Tall, 1999
+21:31:33| Dealership sold: Ford Tall, 1999
+21:31:33| Factory created: Jeep SXE, 1994
+21:31:33| Dealership sold: Jeep SXE, 1994
+21:31:33| Factory created: Chevrolet Flat, 1995
+21:31:33| Dealership sold: Chevrolet Flat, 1995
+21:31:33| Factory created: Nissan Titan, 2016
+...
+21:31:39| Dealership sold: Dodge M1, 2004
+21:31:39| Factory created: Ford GX, 1997
+21:31:39| Factory created: Toyota Charger, 2003
+21:31:39| Dealership sold: Ford GX, 1997
+21:31:39| Dealership sold: Toyota Charger, 2003
+21:31:39| All 500 cars have been created and sold. = 6.03353810
+```
+
+### Plot Created by Your Program 
+
+**After** the Dealership takes a car from the queue, it uses `size()` to get the size of the queue and updates the `queue_stats` list. Here is an example of a plot (Your plot might/will look different). Each bar represents the size of the queue while the program is running. From this plot, the program had a full queue of size 10 during most of the execution time.
 
 ![](./assets/plot.png)
 
@@ -44,4 +63,4 @@ Assignments are not accepted late. Instead, you should submit what you have comp
 
 ### Submission
 
-When finished, upload your Python file and chart to Canvas.
+When finished, upload your Python file, chart, and log to Canvas.

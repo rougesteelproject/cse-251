@@ -48,6 +48,9 @@ class Car():
 
         # Sleep a little.  Last statement in this for loop - don't change
         time.sleep(random.random() / (SLEEP_REDUCE_FACTOR))
+
+        # Display the car that has was just created in the terminal
+        print(f'Created: {self.info()}')
            
     def info(self):
         """ Helper function to quickly get the car information. """

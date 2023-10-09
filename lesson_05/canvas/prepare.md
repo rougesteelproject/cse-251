@@ -7,6 +7,7 @@ Section | Content
 2.2 | [Solution to the Processes Sharing](#solution-to-the-processes-sharing)
 3   | [Managers](#managers) :key:
 4   | [Barrier](#barrier) :key:
+5   | [A Word of Caution](#a-word-of-caution)
 
 :key: = Vital concepts that we will continue to build on in coming lessons.
 
@@ -195,10 +196,10 @@ More document on managers can be [found here](https://docs.python.org/3/library/
 We introduce a new thread and process synchronization control called a **barrier**. Here is the [documentation](https://docs.python.org/3/library/threading.html#barrier-objects) on barriers.
 
 > Barrier objects in python are used to wait for a fixed number of thread to complete execution before any particular thread can proceed forward with the execution of the program. Each thread calls wait() function upon reaching the barrier. The barrier is responsible for keeping track of the number of wait() calls. If this number goes beyond the number of threads for which the barrier was initialized with, then the barrier gives a way to the waiting threads to proceed on with the execution. All the threads at this point of execution, are simultaneously released.
-
+>
 > Barriers can even be used to synchronize access between threads. However, generally a barrier is used to combine the output of threads. A barrier object can be reused multiple times for the exact same number of threads that it was initially initialized for.
-
-[Quote Source](https://www.geeksforgeeks.org/barrier-objects-python/)
+>
+> [Quote Source](https://www.geeksforgeeks.org/barrier-objects-python/)
 
 Lets say that you have three threads working on finding primes in a range of values. Each thread will take a different amount of time to complete. A barrier can be used to force all of the threads to wait until all of them are finished before moving on.
 
@@ -261,3 +262,11 @@ Process 2: time = 8.20724: primes found = 70435
 Process 3: time = 9.95771: primes found = 67883
 Process 1: time = 4.23095: primes found = 78498
 ```
+
+### A Word of Caution
+
+You will need to use Barriers and Managers in this lesson but you should be aware of the following:
+
+Although you can use the `manager()` to share a ` multiprocessing.Queue` and lists between processes, those data structures are much slower to use than a normal `queue.Queue` and lists. In general, it is not a good idea to transfer lots of data between processes using the `manager()` if you can help it. 
+
+Remember the whole point of multiprocessing Processes is to take advantage of multiple cores on your CPU, having each process run as fast as possible to complete its task. Using something like a Manager to sync data (communication) between processes is going to introduce some overhead and slowdown.

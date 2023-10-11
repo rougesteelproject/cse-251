@@ -51,26 +51,135 @@ TOP_API_URL = 'http://127.0.0.1:8790'
 
 # Global Variables
 call_count = 0
+lock = threading.Lock()
 
 
 # TODO Add your threaded class definition here
-
+class ThreadedClass(threading.Thread):
+  def __init__(self, url):
+    super().__init__()
+    self.url = url
+    self.response = {}
 
 # TODO Add any functions you need here
+  def run(self):
+    global call_count
+    self.response = requests.get(self.url).json()
+    lock.acquire()
+    call_count += 1
+    lock.release()
 
 
 def main():
-    log = Log(show_terminal=True)
-    log.start_timer('Starting to retrieve data from the server')
+  log = Log(show_terminal=True)
+  log.start_timer('Starting to retrieve data from the server')
 
-    # TODO Retrieve Top API urls
+  # TODO Retrieve Top API urls
+  urls = requests.get(TOP_API_URL).json()
+  # TODO Retrieve Details on film 6
+  film_getter = ThreadedClass(urls['films'] + '6')
 
-    # TODO Retrieve Details on film 6
+  film_getter.start()
+  film_getter.join()
 
-    # TODO Display results
+  #print(film_getter.response)
 
-    log.stop_timer('Total Time To complete')
-    log.write(f'There were {call_count} calls to the server')
+  print(f'Title : {film_getter.response["title"]}')
+  print(f'Director: {film_getter.response["director"]}')
+  print(f'Producer: {film_getter.response["producer"]}')
+  print(f'Released: {film_getter.response["release_date"]}')
+
+  #Characters
+
+  characters = film_getter.response["characters"]
+
+  print(f'Characters: {len(characters)}')
+  
+  threads = []
+
+  character_names = []
+
+  for character in characters:
+    thread = ThreadedClass(character)
+    threads.append(thread)
+    thread.start()
+    
+  for thread in threads:
+    thread.join()
+    character_names.append(thread.response["name"])
+
+  character_names.sort()
+  
+  print(character_names)
+
+  #Planets
+
+  planets = film_getter.response["planets"]
+
+  print(f'Planets: {len(planets)}')
+  
+  threads = [None] * len(planets)
+
+  planet_names = []
+
+  for i in range(len(planets)):
+    threads[i] = ThreadedClass(planets[i])
+    threads[i].start()
+    
+  for i in range(len(threads)):
+    threads[i].join()
+    planet_names.append(threads[i].response["name"])
+  
+  planet_names.sort()
+
+  print(planet_names)
+
+  #Starships
+
+  starships = film_getter.response["starships"]
+
+  print(f'Starships: {len(starships)}')
+  
+  threads = [None] * len(starships)
+
+  starship_names = []
+
+  for i in range(len(starships)):
+    threads[i] = ThreadedClass(starships[i])
+    threads[i].start()
+    
+  for i in range(len(threads)):
+    threads[i].join()
+    starship_names.append(threads[i].response["name"])
+  
+  starship_names.sort()
+  
+  print(starship_names)
+
+  #Species
+
+  species = film_getter.response["species"]
+
+  print(f'Species: {len(species)}')
+  
+  threads = [None] * len(species)
+
+  species_names = []
+
+  for i in range(len(species)):
+    threads[i] = ThreadedClass(species[i])
+    threads[i].start()
+    
+  for i in range(len(threads)):
+    threads[i].join()
+    species_names.append(threads[i].response["name"])
+  
+  species_names.sort()
+  
+  print(species_names)
+
+  log.stop_timer('Total Time To complete')
+  log.write(f'There were {call_count} calls to the server')
     
 
 if __name__ == "__main__":

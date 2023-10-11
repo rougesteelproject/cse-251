@@ -2,17 +2,18 @@
 Course: CSE 251 
 Lesson: L03 Prove
 File:   prove.py
-Author: <Add name here>
+Author: Kyle Parks
 
 Purpose: Video Frame Processing
 
 Instructions:
 
-- Follow the instructions found in Canvas for this assignment.
+- Follow the instructions found in Canvas for this assignment
 - No other packages or modules are allowed to be used in this assignment.
   Do not change any of the from and import statements.
-- Only process the given MP4 files for this assignment.
+- Only process the given MP4 files for this assignment
 - Do not forget to complete any TODO comments.
+
 """
 
 from matplotlib.pylab import plt  # load plot library
@@ -28,9 +29,7 @@ from cse251 import *
 # 4 more than the number of cpu's on your computer
 CPU_COUNT = mp.cpu_count() + 4
 
-# TODO Your final video needs to have 300 processed frames.
-# However, while you are testing your code, set this much lower!
-FRAME_COUNT = 20
+FRAME_COUNT = 300
 
 # RGB values for reference
 RED = 0
@@ -65,14 +64,12 @@ def create_new_frame(image_file, green_file, process_file):
     image_new = Image.composite(image_img, green_img, mask_img)
     image_new.save(process_file)
 
+def process_frame(frame):
+    image_file = rf'elephant/image{frame:03d}.png'
+    green_file = rf'green/image{frame:03d}.png'
+    process_file = rf'processed/image{frame:03d}.png'
 
-# DONE: Add any functions to need here
-def process_frame(frame_number):
-    image_file = rf'elephant/image{frame_number:03d}.png'
-    green_file = rf'green/image{frame_number:03d}.png'
-    process_file = rf'processed/image{frame_number:03d}.png'
     create_new_frame(image_file, green_file, process_file)
-
 
 def main():
     all_process_time = timeit.default_timer()
@@ -80,23 +77,22 @@ def main():
 
     xaxis_cpus = []
     yaxis_times = []
-
-    # DONE: Process all frames trying 1 cpu ... to CPU_COUNT
-    #       and add add results to xaxis_cpus and yaxis_times
-
-    frames = range(1, FRAME_COUNT + 1)
-    for processors in range(1, CPU_COUNT + 1):
-        xaxis_cpus.append(processors)
+    
+    frames = range(1, FRAME_COUNT +1)
+    for processors in range(1, CPU_COUNT +1):
+        #Process all frames trying 1 cpu, then 2, then 3, ... to CPU_COUNT
         start_time = timeit.default_timer()
-        with mp.Pool(processors) as p:
-            p.map(process_frame, frames)
-        runtime = timeit.default_timer() - start_time
-        yaxis_times.append(runtime);
-        print()
-        log.write(f'Time for {len(frames)} frames using {processors} processes: {runtime}')
+        #start timer
+        xaxis_cpus.append(processors)
+        with mp.Pool(processors) as processors_pool:
+            processors_pool.map(process_frame, frames)
+        yaxis_times.append(timeit.default_timer() - start_time)
+        log.write(f'\nTime To Process all images with {processors} cores = {timeit.default_timer() - start_time}')
+        #stop timer
 
-    # Log the total time this took
     log.write(f'Total Time for ALL processing: {timeit.default_timer() - all_process_time}')
+
+    #PLOT#
 
     # create plot of results and also save it to a PNG file
     plt.plot(xaxis_cpus, yaxis_times, label=f'{FRAME_COUNT}')

@@ -4,7 +4,7 @@ Lesson: L02 Team Activity
 File:   team-solution.py
 Author: Brother Comeau
 
-Purpose: Make threaded API calls with the Playing Card API http://deckofcardsapi.com
+Purpose: Playing Card API calls
 """
 
 from datetime import datetime, timedelta
@@ -19,8 +19,7 @@ class Request_Thread(threading.Thread):
 
     def __init__(self, url):
         # Call the Thread class's init function
-        # threading.Thread.__init__(self)
-        super().__init__()
+        threading.Thread.__init__(self)
         self.url = url
         self.response = {}
 
@@ -69,7 +68,11 @@ class Deck:
 
 if __name__ == '__main__':
 
-    # DONE: Run the program team_get_deck_id.py ONCE and insert the deck ID here.
+    # TODO - run the program team_get_deck_id.py and insert
+    #        the deck ID here.  You only need to run the 
+    #        team_get_deck_id.py program once. You can have
+    #        multiple decks if you need them
+
     deck_id = 'yzl8g57q8wrj'
 
     deck = Deck(deck_id)

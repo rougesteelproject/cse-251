@@ -1,14 +1,15 @@
 """
-Course: CSE 251 
-Lesson: L02 Team Activity
-File:   team.py
-Author: <Add name here>
+Course: CSE 251
+Lesson Week: 03
+File: team.py
+Author: Brother Comeau
 
 Purpose: Team Activity: 
 
 Instructions:
 
-- Review instructions in Canvas.
+- Review instructions in I-Learn
+
 """
 
 import random
@@ -20,6 +21,8 @@ import numpy as np
 import string
 import copy
 import time
+
+from more_itertools import batched
 
 # Include cse 251 common Python files
 from cse251 import *
@@ -45,7 +48,7 @@ class bcolors:
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
 
-class Board():
+class Board(mp.Process):
 
     SIZE = 25
 
@@ -61,10 +64,14 @@ class Board():
     )
 
     def __init__(self):
+        super.__init__(self)
         """ Create the instance and the board arrays """
         # self.board = [['.' for _ in range(size)] for _ in range(size)]
+
         self.size = self.SIZE 
-        self.highlighting = [[False for _ in range(self.SIZE)] for _ in range(self.SIZE)] 
+        self.highlighting = [[False for _ in range(self.SIZE)] for _ in range(self.SIZE)]
+
+        
 
         self.board = [['L', 'S', 'O', 'D', 'A', 'E', 'O', 'M', 'A', 'A', 'I', 'I', 'A', 'S', 'S', 'A', 'M', 'G', 'R', 'C', 'O', 'D', 'A', 'I', 'R'], 
                       ['A', 'V', 'C', 'S', 'N', 'T', 'U', 'U', 'O', 'H', 'N', 'C', 'H', 'A', 'B', 'E', 'U', 'M', 'O', 'C', 'R', 'G', 'H', 'A', 'I'], 
@@ -104,6 +111,7 @@ class Board():
     def get_letter(self, x, y):
         """ Return the letter found at (x, y) """
         if x < 0 or y < 0 or x >= self.size or y >= self.size:
+            #If the direction was up from the top or down from the bottom, return blank string
             return ''
         return self.board[x][y]
 
@@ -122,41 +130,75 @@ class Board():
         """ Helper function: is the word found on the board at (x, y) in a direction """
         dir_x, dir_y = self.directions[direction]
         highlight_copy = copy.deepcopy(self.highlighting)
+        #gets the highlight from before looking for the word
+        
         for letter in word:
             board_letter = self.get_letter(row, col)
             if board_letter == letter:
+                
                 self.highlight(row, col)
+                
                 row += dir_x
                 col += dir_y
             else:
                 self.highlighting = copy.deepcopy(highlight_copy)
-                return False
-        return True
+                break
+                #resets the highlight
+                #Highlighing is not process safe
+                #return False
+        #return True
 
-    def find_word(self, word):
+    def find_word(self, word, lock):
         """ Find a word in the board """
         print(f'Finding {word}...')
         for row in range(self.size):
             for col in range(self.size):
+                #go letter by letter
                 for d in range(0, 8):
-                    if self._word_at_this_location(row, col, d, word):
-                        return True
-        return False
+                    #8 compass directions
+                    lock.acquire()
+                    self._word_at_this_location(row, col, d, word)
+                        #each direction from each letter
+                    lock.release()
+                    #    return True           
+        #print(f'Error: Could not find "{word}"')
+        #lock.release()
+        #return False
 
+
+#TODO do processes
+#Highlighting is IO
+#Each word can run independantly
+#Each row independantly?
+#Each column?
 
 def main():
     board = Board()
     board.display()
 
+    lock = mp.Lock()
+
     start = time.perf_counter()
-    for word in words:
-        if not board.find_word(word):
-            print(f'Error: Could not find "{word}"')
+    #for word in words:
+    #    if not board.find_word(word):
+    #        print(f'Error: Could not find "{word}"')
     
     total_time = time.perf_counter() - start
 
+    for chunk in [words[x:x + os.cpu_count()] for x in range(0, len(words), os.cpu_count())]:
+
+        pool = [None] * len(chunk)
+
+        for i in range(len(chunk)):
+            pool[i] = mp.Process(target=board.find_word, args=(chunk[i], lock))
+            pool[i].start()
+
+        for process in pool:
+            process.join()
+
     board.display()
     print(f'Time to find words = {total_time}')
+    #30 secs normal with working highlights, 10 secs mp pool on find_word w/o highlights
 
 if __name__ == '__main__':
     main()

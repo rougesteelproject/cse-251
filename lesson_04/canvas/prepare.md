@@ -392,12 +392,12 @@ The information covered in this section is summarized from the following sources
 >
 > The semaphore concept was invented by Dutch computer scientist Edsger Dijkstra in 1962 or 1963, when Dijkstra and his team were developing an operating system for the Electrologica X8. That system eventually became known as THE multiprogramming system.
 
-Whereas a `Lock` is a *only allow one thread in at a time*, a `Semaphore` allows multiple threads to enter an area of code.
+Whereas a `Lock` is a *only allow one thread in at a time*, a `Semaphore` allows multiple threads to enter an area of code. Semaphores are part of threading: `threading.Semaphore()`
 
 When a semaphore is created, you can indicate that number of concurrent threads that can be allowed *in*. They are used to control access to data not threads. They are a synchronization construct whereas a lock is mutual exclusion control.
 
 ```python
-sem = Semaphore(count)
+sem = threading.Semaphore(count)
 
 sem.acquire()
 # Do something

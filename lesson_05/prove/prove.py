@@ -129,7 +129,8 @@ def run_production(factory_count, dealer_count):
     # This is used to track the number of cars receives by each dealer
     dealer_stats = list([0] * dealer_count)
 
-    # TODO create your factories, each factory will create CARS_TO_CREATE_PER_FACTORY
+    # TODO create your factories, each factory will create a random amount of cars; your code must account for this.
+    # NOTE: You have no control over how many cars a factory will create in this assignment.
 
     # TODO create your dealerships
 

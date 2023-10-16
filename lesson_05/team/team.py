@@ -2,7 +2,7 @@
 Course: CSE 251 
 Lesson: L05 Team Activity
 File:   team.py
-Author: <Add your name here>
+Author: Kyle Parks
 
 Purpose: Check for prime values
 
@@ -19,10 +19,12 @@ import multiprocessing as mp
 import random
 from os.path import exists
 
+import queue
+
 #Include cse 251 common Python files
 from cse251 import *
 
-PRIME_PROCESS_COUNT = 1
+PRIME_PROCESS_COUNT = 3
 
 def is_prime(n: int) -> bool:
     """Primality test using 6k+-1 optimization.
@@ -41,9 +43,21 @@ def is_prime(n: int) -> bool:
 
 
 # TODO create read_thread function
-
+def read_thread(file, q):
+    with open(file, 'r') as f:
+        for thign in f:
+            q.put(thign.strip())
 
 # TODO create prime_process function
+def prime_process(q, primes):
+    while True:
+        try :
+            value = q.get(False)
+            if is_prime(int(value)):
+                primes.append(value)
+        except queue.Empty:
+            return
+
 
 
 def create_data_txt(filename):
@@ -66,13 +80,33 @@ def main():
 
     # TODO Create shared data structures
 
+    q = mp.Queue()
+
+    primes = mp.Manager().list()
+
+    #barrier = mp.Barrier(PRIME_PROCESS_COUNT)
+
     # TODO create reading thread
+
+    reading_thread = threading.Thread(target=read_thread, args=(filename, q))
 
     # TODO create prime processes
 
+    prime_processes = [mp.Process(target=prime_process, args=(q, primes)) for i in range(PRIME_PROCESS_COUNT)]
+
     # TODO Start them all
 
+    reading_thread.start()
+
+    for process in prime_processes:
+        process.start()
+
     # TODO wait for them to complete
+
+    reading_thread.join()
+
+    for process in prime_processes:
+        process.join()
 
     log.stop_timer(f'All primes have been found using {PRIME_PROCESS_COUNT} processes')
 

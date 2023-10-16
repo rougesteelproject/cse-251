@@ -129,8 +129,6 @@ def run_production(factory_count, dealer_count):
     # This is used to track the number of cars received by each dealer
     dealer_stats = list([0] * dealer_count)
 
-    # OPTIONAL: Create and track stats for the factories.
-
     # TODO create your factories, each factory will create a random amount of cars; your code must account for this.
     # NOTE: You have no control over how many cars a factory will create in this assignment.
 
@@ -142,7 +140,11 @@ def run_production(factory_count, dealer_count):
 
     # TODO Start all factories
 
-    # TODO Wait for factories and dealerships to complete
+    # This is used to track the number of cars produced by each factory NOTE: DO NOT pass this into
+    # your factories! You must collect this data here in `run_production` after the factories are finished.
+    factory_stats = []
+
+    # TODO Wait for the factories and dealerships to complete; do not forget to get the factories stats
 
     run_time = log.stop_timer(f'{sum(dealer_stats)} cars have been created.')
 
@@ -163,8 +165,8 @@ def main(log):
         log.write(f'Dealerships    : {dealerships}')
         log.write(f'Run Time       : {run_time:.4f}')
         log.write(f'Max queue size : {max_queue_size}')
-        log.write(f'Factory Stats  : {factory_stats}')
-        log.write(f'Dealer Stats   : {dealer_stats}')
+        log.write(f'Factory Stats  : Made = {sum(dealer_stats)} @ {factory_stats}')
+        log.write(f'Dealer Stats   : Sold = {sum(factory_stats)} @ {dealer_stats}')
         log.write('')
 
         # The number of cars produces needs to match the cars sold

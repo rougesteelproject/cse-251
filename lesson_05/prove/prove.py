@@ -126,8 +126,10 @@ def run_production(factory_count, dealer_count):
     # TODO Create lock(s) if needed
     # TODO Create barrier
 
-    # This is used to track the number of cars receives by each dealer
+    # This is used to track the number of cars received by each dealer
     dealer_stats = list([0] * dealer_count)
+
+    # OPTIONAL: Create and track stats for the factories.
 
     # TODO create your factories, each factory will create a random amount of cars; your code must account for this.
     # NOTE: You have no control over how many cars a factory will create in this assignment.

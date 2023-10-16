@@ -29,15 +29,31 @@ Pipes are used to send messages (ie., data) between processes. The following is 
 
 ### Creating a Pipe
 
-When you create a pipe from the multiprocessing module, you receive both ends of the pipe. They are called the parent and child connections in most programming languages. (ie., the parent will send information using their connection and the child will receive information using their connection). You can send information in both directions. Just be careful that you don't have both processes waiting for information at the same time (ie., deadlock)
+When you create a pipe from the multiprocessing module, you receive both ends of the pipe. They are called the parent and child connections in most programming languages. For example, the parent will send information using their connection and the child will receive information using their connection. You can send information in both directions. Just be careful that you don't have both processes waiting for information at the same time or you will have created a deadlock.
 
 ```python
 import multiprocessing 
 
+# Unpack the pipe object (dictionary)
 parent_connection, child_connection = multiprocessing.Pipe()
 ```
 
-Here is an example of creating a pipe and passing the parent connection to the `sender` process and the child connection to the `receiver` process. Note that if a process tries to read from a pipe using `recv()` and there is nothing to read, then the process will wait. If nothing ever is send on that pipe, you have a deadlock situation.
+Just so you are aware the following code is equally valid but less common:
+
+```python
+import multiprocessing 
+
+# Assign to a single variable instead of unpacking- like in the previous example.
+pipes = multiprocessing.Pipe()
+
+# Get the parent connection object using pipes['parent_conn'].
+parent_conn = pipes['parent_conn']
+
+# Get the child connection object using pipes['child_conn'].
+child_conn = pipes['child_conn']
+```
+
+Here is an example of creating a pipe and passing the parent connection to the `sender` process and the child connection to the `receiver` process. Note that if a process tries to read from a pipe using `recv()` and there is nothing to read, then the process will wait. If nothing ever is sent on that pipe, you have a deadlock situation.
 
 ```python
 import multiprocessing 
@@ -46,7 +62,7 @@ def sender(conn):
     """ function to send messages to other end of pipe """
     conn.send('Hello')
     conn.send('World')
-    conn.close() 			# Close this connection when done
+    conn.close() # Close this connection when done
 
 def receiver(conn): 
     """ function to print the messages received from other end of pipe  """
@@ -116,7 +132,7 @@ Output:
 
 Here is a break down of the above example:
 
-We need to import **Value** and/or **Array**. (There are other methods of sharing data, but will wait later in the course to talk about them.)
+We need to import **Value** and/or **Array**. There are other methods of sharing data, but will wait later in the course to talk about them.
 
 ```python
 from multiprocessing import Process, Value, Array
@@ -125,7 +141,7 @@ from multiprocessing import Process, Value, Array
 Next, we can use **Value** and/or **Array** to create the shared variables that will be used between processes. For both Value and Array, they take two arguments. 
 
 - The first one is the data type. `d` indicates a double precision float and `i` indicates a signed integer.
-- The second is the initial value for Value() and for Array, it is the list of values.
+- The second is the initial value for `Value()` or the list of values for `Array`.
 
 ```python
 num = Value('d', 0.0)
@@ -145,7 +161,7 @@ Here we just pass them to the process using the `args` argument.
 p = Process(target=f, args=(num, arr))
 ```
 
-Using these shared variables is a little different. For shared Value() variables, you need to use `.value` to use them. For the shared Array() variable, you use them normally using `[]`.
+Using these shared variables is a little different. For shared `Value()` variables, you need to use `.value` to use them. For the shared `Array()` variable, you access them normally using square brackets (`[]`).
 
 ```python
 def f(n, a):
@@ -154,4 +170,4 @@ def f(n, a):
 	    a[i] = -a[i]
 ```
 
-When using shared variables, remember that if there are processes writing and reading them, when you need to stop a race condition by using a shared lock.
+When using shared variables, remember that if there are processes writing to and reading from them, then you need to stop a potential race condition by using a shared lock.

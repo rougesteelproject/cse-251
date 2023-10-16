@@ -20,7 +20,7 @@ import filecmp
 # Include cse 251 common Python files
 from cse251 import *
 
-def sender():
+def sender(): # Parent
     """ function to send messages to other end of pipe """
     '''
     open the file
@@ -31,7 +31,7 @@ def sender():
     pass
 
 
-def receiver():
+def receiver(): # Child
     """ function to print the messages received from other end of pipe """
     ''' 
     open the file for writing

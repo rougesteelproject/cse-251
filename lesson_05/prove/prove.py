@@ -87,12 +87,13 @@ class Queue251():
 class Factory(threading.Thread):
     """ This is a factory.  It will create cars and place them on the car queue """
 
-    def __init__(self, q, cars_available, barrier):
+    def __init__(self, q, cars_available, barrier, dealer_count):
         super().__init__()
         self.cars_to_produce = random.randint(200, 300) # DO NOT change
         self.q = q
         self.barrier = barrier
         self.cars_available = cars_available
+        self.dealer_count = dealer_count
 
     def run(self):
         # TODO produce the cars, the send them to the dealerships
@@ -102,12 +103,13 @@ class Factory(threading.Thread):
             self.cars_available.release()
 
         # TODO wait until all of the factories are finished producing cars
-        print("FACTORY AT BARRIER")
-        self.barrier.wait()
+        i = self.barrier.wait()
 
         # TODO "Wake up/signal" the dealerships one more time.  Select one factory to do this
-        self.q.put("NO_MORE_CARS")
-        self.cars_available.release()
+        if i == 0:
+            for dealer in range(self.dealer_count):
+                self.q.put("NO_MORE_CARS")
+                self.cars_available.release()
 
 
 class Dealer(threading.Thread):
@@ -129,11 +131,13 @@ class Dealer(threading.Thread):
 
             if car != "NO_MORE_CARS":
                 self.cars.append(car)
+                #print(f'SELLING: {car.info()}')
             else:
                 return
 
             # Sleep a little - don't change.  This is the last line of the loop
             time.sleep(random.random() / (SLEEP_REDUCE_FACTOR + 0))
+        
 
 def run_production(factory_count, dealer_count):
     """ This function will do a production run with the number of
@@ -159,7 +163,7 @@ def run_production(factory_count, dealer_count):
 
     # TODO create your factories
 
-    factories = [Factory(car_queue, cars_available,pramikon) for factory in range(factory_count)]
+    factories = [Factory(car_queue, cars_available,pramikon, dealer_count) for factory in range(factory_count)]
 
     # TODO create your dealerships
 
@@ -178,8 +182,10 @@ def run_production(factory_count, dealer_count):
 
     for factory in factories:
         factory.start()
+    
 
     # TODO Wait for factories and dealerships to complete
+    #pramikon.wait()
 
     for dealership in dealerships:
         dealership.join()

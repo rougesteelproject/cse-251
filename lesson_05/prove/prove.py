@@ -154,22 +154,20 @@ def run_production(factory_count, dealer_count):
     car_queue = Queue251()
 
     # TODO Create lock(s) if needed
-    
-    #Create barrier
+    # TODO Create barrier
     pramikon = threading.Barrier(factory_count)
 
-    # This is used to track the number of cars receives by each dealer
+    # This is used to track the number of cars received by each dealer
     dealer_stats = list([0] * dealer_count)
 
-    # TODO create your factories
+    # TODO create your factories, each factory will create CARS_TO_CREATE_PER_FACTORY
+    # NOTE: You have no control over how many cars a factory will create in this assignment.
 
     factories = [Factory(car_queue, cars_available,pramikon, dealer_count) for factory in range(factory_count)]
 
     # TODO create your dealerships
 
     dealerships = [Dealer(car_queue, cars_available) for dealer in range(dealer_count)]
-
-    factory_stats = [factory.cars_to_produce for factory in factories]
 
     log.start_timer()
 
@@ -183,6 +181,9 @@ def run_production(factory_count, dealer_count):
     for factory in factories:
         factory.start()
     
+    # This is used to track the number of cars produced by each factory NOTE: DO NOT pass this into
+    # your factories! You must collect this data here in `run_production` after the factories are finished.
+    factory_stats = []
 
     # TODO Wait for factories and dealerships to complete
     #pramikon.wait()
@@ -194,6 +195,8 @@ def run_production(factory_count, dealer_count):
 
     for factory in factories:
         factory.join()
+
+        factory_stats.append(factory.cars_to_produce)
 
     run_time = log.stop_timer(f'{sum(dealer_stats)} cars have been created.')
 
@@ -214,8 +217,8 @@ def main(log):
         log.write(f'Dealerships    : {dealerships}')
         log.write(f'Run Time       : {run_time:.4f}')
         log.write(f'Max queue size : {max_queue_size}')
-        log.write(f'Factory Stats  : {factory_stats}')
-        log.write(f'Dealer Stats   : {dealer_stats}')
+        log.write(f'Factory Stats  : Made = {sum(dealer_stats)} @ {factory_stats}')
+        log.write(f'Dealer Stats   : Sold = {sum(factory_stats)} @ {dealer_stats}')
         log.write('')
 
         # The number of cars produces needs to match the cars sold
@@ -225,4 +228,3 @@ def main(log):
 if __name__ == '__main__':
     log = Log(show_terminal=True)
     main(log)
-

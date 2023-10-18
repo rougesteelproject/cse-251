@@ -2,7 +2,7 @@
 Course: CSE 251 
 Lesson: L06 Team Activity
 File:   team.py
-Author: <Add name here>
+Author: Kyle Parks
 
 Purpose: Team Activity
 
@@ -20,7 +20,7 @@ import filecmp
 # Include cse 251 common Python files
 from cse251 import *
 
-def sender(): # Parent
+def sender(file_path, pipe_parent,SENDER_DONE_SIGNAL): # Parent
     """ function to send messages to other end of pipe """
     '''
     open the file
@@ -28,17 +28,38 @@ def sender(): # Parent
     Note: you must break each line in the file into words and
           send those words through the pipe
     '''
-    pass
+    with open(file_path, "r") as file:
+        first_line = True
+        for line in file:
+            if not first_line:
+                pipe_parent.send("\n")
+            line = line.split()
+            first_word = True
+            for i in range(len(line)):
+                if not first_word:
+                    pipe_parent.send(" ")
+                pipe_parent.send(line[i])
+                first_word = False
+            first_line = False
+        pipe_parent.send(SENDER_DONE_SIGNAL)
+        pipe_parent.close()
 
 
-def receiver(): # Child
+def receiver(new_file_path, pipe_child, items_sent, sender_done_signal): # Child
     """ function to print the messages received from other end of pipe """
     ''' 
     open the file for writing
     receive all content through the shared pipe and write to the file
     Keep track of the number of items sent over the pipe
     '''
-    pass
+    with open(new_file_path, "w") as new_file:
+        while True:
+            line = pipe_child.recv()
+            if line == sender_done_signal:
+                return
+            else:
+                new_file.write(line)
+                items_sent.value += 1
 
 
 def are_files_same(filename1, filename2):
@@ -47,23 +68,35 @@ def are_files_same(filename1, filename2):
 
 
 def copy_file(log, filename1, filename2):
-    # TODO create a pipe 
-    
-    # TODO create variable to count items sent over the pipe
+    # DONE create a pipe 
 
-    # TODO create processes 
+    pipe_parent, pipe_child = mp.Pipe()
+    
+    # DONE create variable to count items sent over the pipe
+
+    items_sent = Value('i',0)
+
+    SENDER_DONE_SIGNAL = "NO_MORE_LINES"
+
+    # DONE create processes
+    file_sender = Process(target=sender, args=(filename1, pipe_parent, SENDER_DONE_SIGNAL))
+    file_reciever = Process(target=receiver, args=(filename2, pipe_child, items_sent, SENDER_DONE_SIGNAL)) 
 
     log.start_timer()
     start_time = log.get_time()
 
-    # TODO start processes 
+    # DONE start processes
+    file_sender.start()
+    file_reciever.start()
     
-    # TODO wait for processes to finish
+    # DONE wait for processes to finish
+    file_sender.join()
+    file_reciever.join()
 
     stop_time = log.get_time()
 
-    log.stop_timer(f'Total time to transfer content = {PUT YOUR VARIABLE HERE}: ')
-    log.write(f'items / second = {PUT YOUR VARIABLE HERE / (stop_time - start_time)}')
+    log.stop_timer(f'Total time to transfer content ({items_sent.value} items) = {stop_time - start_time}: ')
+    log.write(f'items / second = {items_sent.value / (stop_time - start_time)}')
 
     if are_files_same(filename1, filename2):
         log.write(f'{filename1} - Files are the same')

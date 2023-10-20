@@ -42,7 +42,7 @@ def receiver(conn):
         else:
             print(f'\033[33m{movie_line}\033[0m\n')
 
-        time.sleep(len(movie_line) * 0.01)
+        time.sleep(len(movie_line) * 0.1)
 
 
 if __name__ == "__main__": 

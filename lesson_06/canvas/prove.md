@@ -2,11 +2,11 @@
 
 ### Overview
 
-
+You will be using multiple Pipes to simulate a real life assembly line that requires various stations to create an end product. We will use a settings file to alter the assembly line requirements. One example: Your settings file creates bags of 7 normal marbles + 1 large marble, ours will modify the bag count to lower and greater numbers than 7.
 
 ### Project Description
 
-A gift processing plant needs to create gifts for Christmas. A gift consists of a large marble with other smaller marbles.
+A gift processing plant needs to create gifts for Christmas. At this plant a gift consists of a bag of normal marbles and one large special marble. This bag is then gift wrapped and boxed for shipment/delivery.
 
 ### Factory Layout
 
@@ -47,7 +47,6 @@ There is a file `settings.txt` that contains a number of values that will be use
     "bag-count":7
 }
 ```
-
 
 ### Assignment
 

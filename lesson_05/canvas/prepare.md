@@ -235,7 +235,7 @@ def process_function(process_id, barrier, start_value, end_value):
 
 def main():    
 
-    barrier = mp.Barrier(4)         # 4 is the number of processes to wait
+    barrier = mp.Barrier(4) # 4 is the number of processes to wait for
 
     # Create 4 processes, pass a "process_id" and a barrier to each thread
     processes = []

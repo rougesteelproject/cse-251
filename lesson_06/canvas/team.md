@@ -17,7 +17,7 @@ Text files just contain ASCII characters. You will be implementing a program tha
 
 ### Sample Solution
 
-- We will go over the solution next class.
+We will go over the solution in the last class of this week.
 
 ### Submission
 

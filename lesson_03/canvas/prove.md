@@ -24,6 +24,8 @@ FFmpeg is a free open-course video and image converter. It is included in the gi
 1. The `ffmpeg` file is already included in this weeks `prove` directory.
 2. As long as you run the `prove.py` assignment with the `prove` directory as the root folder it should automatically be detected.
 
+**NOTE:** You will most likely encounter a permissions error on Mac. See the [Assignment Setup](#assignment-setup) section below for help.
+
 #### Linux Installation
 
 1. You will have to manually install ffmpeg globally to your system with a command similar to: `sudo apt install ffmpeg`
@@ -31,11 +33,26 @@ FFmpeg is a free open-course video and image converter. It is included in the gi
 
 ### Assignment Setup
 
-We have included a `setup.py` script that will automatically setup various directories and files needed for this assignment when you run your `prove.py` file for the first time. If you are using Mac OS you might encounter the following warning message:
+We have included a `setup.py` script that will automatically setup various directories and files needed for this assignment when you run your `prove.py` file for the first time.
+
+If you are using Mac OS you might encounter a catastrophic error where the folders are created but python crashes with a cryptic error. You will need to go to the `ffmpeg` (not the one with `.exe`) file in your Finder and follow these steps:
+
+1. Open Finder and navigate to the `library` folder where `ffmpeg` is located.
+2. Right-click on the executable and select "Get Info".
+3. In the "Get Info" window, click on the lock icon in the bottom-left corner and enter your administrator password to unlock it.
+4. Under "Sharing & Permissions", click on the "+" button and add your user account to the list of permissions.
+5. Make sure that the "Read & Write" permission is selected for your user account.
+6. Click on the lock icon again to lock the permissions.
+
+If you are still getting errors after doing this you will need to navigate to the `ffmpeg` file in your terminal and run this command: `sudo chmod 777 ffmpeg`.
+
+---
+
+If are on an older Mac computer you may receive the following warning message:
 
 ![](assets/mac-step-1.png)
 
-Click on `cancel` and go to the `Security & Privacy` options in the settings app.
+If this box popped up click on `cancel` and go to the `Security & Privacy` options in the settings app.
 
 ![](assets/mac-step-2.png)
 

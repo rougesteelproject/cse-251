@@ -2,7 +2,7 @@
 Course: CSE 251 
 Lesson: L07 Prove
 File:   prove.py
-Author: <Add name here>
+Author: Kyle Parks
 
 Purpose: Process Task Files.
 
@@ -14,6 +14,12 @@ below before submitting this file:
 TODO:
 
 Add your comments here on the pool sizes that you used for your assignment and why they were the best choices.
+
+I HAVE 12 CORES, so I want to use between 12 and 24. Evenly split, that's 5 per pool, with 4 to play with. ~40s with 2 each, ~30 with 5 each.
+Finding the word is IO bound because it needs to open and close the file, so it won't benefit with a bigger pool.
+I dropped it down to 1, leaving a total of 7 to allocate,
+but after experimentation, the "words" pool on 1 process was 20s slower than on 4. 
+If I want to fine-tune it, I'd take more from the "upper" pool, since it seems like a simple function.
 """
 
 from datetime import datetime, timedelta
@@ -64,7 +70,7 @@ def task_prime(value):
             - or -
         {value} is not prime
     """
-    pass
+    return is_prime(value)
 
 
 def task_word(word):
@@ -75,7 +81,12 @@ def task_word(word):
             - or -
         {word} not found *****
     """
-    pass
+    with open('words.txt') as f:
+        datafile = f.readlines()
+    for line in datafile:
+        if word in line:
+            return True
+    return False
 
 
 def task_upper(text):
@@ -83,7 +94,7 @@ def task_upper(text):
     Add the following to the global list:
         {text} ==>  uppercase version of {text}
     """
-    pass
+    return text.upper()
 
 
 def task_sum(start_value, end_value):
@@ -91,7 +102,7 @@ def task_sum(start_value, end_value):
     Add the following to the global list:
         sum of {start_value:,} to {end_value:,} = {total:,}
     """
-    pass
+    return sum(range(start_value, end_value + 1))
 
 
 def task_name(url):
@@ -102,7 +113,26 @@ def task_name(url):
             - or -
         {url} had an error receiving the information
     """
-    pass
+    response =  requests.get(url)
+    if response.status_code == 200:
+        return response.json()['name']
+    else:
+        return response.status_code
+
+def prime_callback(prime):
+    result_primes.append(prime)
+
+def word_callback(result):
+    result_words.append(result)
+
+def upper_callback(result):
+    result_upper.append(result)
+
+def sum_callback(result):
+    result_sums.append(result)
+
+def name_callback(name):
+    result_names.append(name)
 
 
 def main():
@@ -110,6 +140,12 @@ def main():
     log.start_timer()
 
     # TODO Create process pools
+
+    pool_primes = mp.Pool(5)
+    pool_words = mp.Pool(5)
+    pool_upper = mp.Pool(4)
+    pool_sums = mp.Pool(5)
+    pool_names = mp.Pool(5)
 
     # TODO you can change the following
     # TODO start and wait pools
@@ -124,18 +160,29 @@ def main():
         count += 1
         task_type = task['task']
         if task_type == TYPE_PRIME:
-            task_prime(task['value'])
+            pool_primes.apply_async(task_prime, args=(task['value'],),callback=prime_callback)
         elif task_type == TYPE_WORD:
-            task_word(task['word'])
+            pool_words.apply_async(task_word, args=(task['word'],), callback=word_callback)
         elif task_type == TYPE_UPPER:
-            task_upper(task['text'])
+            pool_upper.apply_async(task_word, args=(task['text'],), callback=upper_callback)
         elif task_type == TYPE_SUM:
-            task_sum(task['start'], task['end'])
+            pool_sums.apply_async(task_sum, args=(task['start'], task['end'],), callback=sum_callback)
         elif task_type == TYPE_NAME:
-            task_name(task['url'])
+            pool_names.apply_async(task_name, args=(task['url'],), callback=name_callback)
         else:
             log.write(f'Error: unknown task type {task_type}')
 
+    pool_primes.close()
+    pool_words.close()
+    pool_upper.close()
+    pool_sums.close()
+    pool_names.close()
+
+    pool_primes.join()
+    pool_words.join()
+    pool_upper.join()
+    pool_sums.join()
+    pool_names.join()
 
     # DO NOT change any code below this line!
     #---------------------------------------------------------------------------
@@ -171,6 +218,7 @@ def main():
     log.write(f'Number of Names tasks: {len(result_names)}')
     log.stop_timer(f'Total time to process {count} tasks')
 
+    print(os.cpu_count())
 
 if __name__ == '__main__':
     main()

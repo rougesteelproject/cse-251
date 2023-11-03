@@ -138,6 +138,18 @@ class Bagger(mp.Process):
                 self.sender.send(self.pipe_empty)
                 return
 
+        #while True:
+            #while bag.get_size < self.marbles_per_bag:
+                #marble = self.reciever.recv()
+                #if marble != self.pipe_empty:
+                    #bag.add(marble)
+                #else:
+                    #self.sender.send(self.pipe_empty)
+                    #return
+            #self.sender.send(bag)
+            #bag = Bag()
+            #time.sleep(self.delay)
+
 class Assembler(mp.Process):
     """ Take the set of marbles and create a gift from them.
         Sends the completed gift to the wrapper """

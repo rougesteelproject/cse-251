@@ -2,7 +2,7 @@
 Course: CSE 251 
 Lesson Week: 09
 File: assignment09-p1.py 
-Author: <Add name here>
+Author: Kyle Parks
 
 Purpose: Part 1 of assignment 09, finding a path to the end position in a maze
 
@@ -27,6 +27,17 @@ FAST_SPEED = 1
 speed = SLOW_SPEED
 
 # TODO add any functions
+
+def branch(old_position,position):
+    x, y = position
+    old_x, old_y = old_position
+    if at_end_of_maze:
+        pass
+    else:
+        for x_to_try in [x+1, x-1]:
+            for y_to_try in [y+1, y-1]:
+                if (x_to_try, y_to_try) != old_position:
+                    branch((x_to_try,y_to_try))
 
 def solve_path(maze):
     """ Solve the maze and return the path found between the start and end positions.  

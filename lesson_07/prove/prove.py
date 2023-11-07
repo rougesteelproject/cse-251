@@ -27,11 +27,20 @@ import math
 # Include cse 251 common Python files - Dont change
 from cse251 import *
 
+# Constants - Don't change
 TYPE_PRIME  = 'prime'
 TYPE_WORD   = 'word'
 TYPE_UPPER  = 'upper'
 TYPE_SUM    = 'sum'
 TYPE_NAME   = 'name'
+
+# TODO: Change the pool sizes and explain your reasoning in the header comment
+
+PRIME_POOL_SIZE = 1
+WORD_POOL_SIZE  = 1
+UPPER_POOL_SIZE = 1
+SUM_POOL_SIZE   = 1
+NAME_POOL_SIZE  = 1
 
 # Global lists to collect the task results
 result_primes = []
@@ -111,8 +120,7 @@ def main():
 
     # TODO Create process pools
 
-    # TODO you can change the following
-    # TODO start and wait pools
+    # TODO change the following to start the pools
     
     count = 0
     task_files = glob.glob("tasks/*.task")
@@ -136,6 +144,7 @@ def main():
         else:
             log.write(f'Error: unknown task type {task_type}')
 
+    # TODO wait on the pools
 
     # DO NOT change any code below this line!
     #---------------------------------------------------------------------------

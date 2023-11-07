@@ -4,11 +4,12 @@ Section | Content
 --- | ---
 1   | [Overview](#overview)
 2   | [Articles to Review](#articles-to-review)
-3   | [Pipe](#pipe)
-4   | [Creating a Pipe](#creating-a-pipe)
+3.1 | [Pipe](#pipe) :key:
+3.2 | [Creating a Pipe](#creating-a-pipe)
+3.3 | [Pipe Clarifications](#pipe-clarifications)
 5   | [Sharing Data Between Processes](#sharing-data-between-processes) :key:
 
-:key: = Vital concepts that we will continue to build on in coming lessons.
+:key: = Vital concepts that we will continue to build on in coming lessons / key learning outcomes for this course.
 
 ### Overview
 
@@ -94,6 +95,32 @@ Output:
 Received: Hello
 Received: World
 ```
+
+### Pipe Clarifications
+
+**Use close() Properly**
+
+Do not forget to close both ends of your pipe! If you do not close both ends of a multiprocessing.Pipe, or never call close at all, the following things could happen:
+
+- The pipe may not be garbage collected. This is because the pipe is still open in one or more processes, and the garbage collector cannot collect it until all of its references are gone. This can lead to memory leaks.
+- Processes may block indefinitely when trying to read from the pipe. This is because the operating system may not know that the pipe has been closed, and the process may keep waiting for data that will never come.
+- Processes may crash when trying to write to the pipe. This is because the operating system may close the pipe when the last process that had it open closes its connection. If another process tries to write to the pipe after this happens, it will cause an error.
+
+**Pipe Communication**
+
+As explained in the last section each `Pipe()` has two ends. You can imagine that these two ends operate like a traditional (old school) baby monitor. The listening device (sender, parent) picks up sound and transmits it to the receiving device (receiver, child).
+
+![](./assets/baby-monitor.jpg)
+
+This type of communication between processes is referred to as unidirectional (one-way) communication. Python does support bidirectional (both-way) communication between processes using **named pipes** but **we do not cover or use that in this class**.
+
+**Named Pipes for the Curious**
+
+If you are curious, named pipes are like a child's tin-can walkie-talkie. You can communicate (send data) and listen (receive data) from both ends of the tin-can walkie-talkie (Pipe).
+
+![](./assets/tin-cans-string.jpg)
+
+If you are only sending data in one direction however, a named pipe is overkill. Again, **we do not cover or use named pipes in this class**.
 
 ### Sharing Data Between Processes
 

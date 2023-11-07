@@ -11,7 +11,7 @@ Your assignment will process a directory full of task files. Each file will cont
     - Run the Python program **create_tasks.py** once to create the task files for this assignment. You can start with a few tasks for testing but you should run this file again when your ready for all 4034 tasks.
 1. There are 5 different types of tasks that need to be processed. Each type of task needs to  have it's own process pool. The number of processes in each pool is up to you. However, your goal is to process all of the tasks as quickly as possible using these pools. You will need to try out different pool sizes.
 2. The program should load a task one at a time and add it to the pool that is used to process that task type. You **CAN NOT** load all of the tasks into memory/list and then pass them to a pool.
-    - The task_* functions contain general logic of what needs to happen
+    - The `task_*` functions contain general logic of what needs to happen
 3. You are required to use the function `apply_async()` for these 5 pools. You **CAN NOT** use `map()`, or any other pool function. You must use callback functions with the `apply_async()` statement.
 4. Each pool will collect that results of their tasks into a global list. (ie. result_primes, result_words, result_upper, result_sums, result_names)
 5. Do not use try...except statements

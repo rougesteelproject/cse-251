@@ -9,7 +9,7 @@ Section | Content
 4   | [Barrier](#barrier) :key:
 5   | [A Word of Caution](#a-word-of-caution)
 
-:key: = Vital concepts that we will continue to build on in coming lessons.
+:key: = Vital concepts that we will continue to build on in coming lessons / key learning outcomes for this course.
 
 ### Overview
 

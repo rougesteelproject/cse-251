@@ -14,7 +14,7 @@ Section | Content
 6.4 | [Loosely Synchronous Parallelism](#loosely-synchronous-parallelism)
 7   | [Rules-of-Thumb Based on Type of Problem](#rules-of-thumb-based-on-type-of-problem) :key:
 
-:key: = Vital concepts that we will continue to build on in coming lessons.
+:key: = Vital concepts that we will continue to build on in coming lessons / key learning outcomes for this course.
 
 ### Overview
 

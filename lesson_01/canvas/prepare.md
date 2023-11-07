@@ -18,7 +18,7 @@ Section | Content
 6   | [Critical Sections](#critical-sections) :key:
 7   | [Daemon Threads](#daemon-threads)
 
-:key: = Vital concepts that we will continue to build on in coming lessons.
+:key: = Vital concepts that we will continue to build on in coming lessons / key learning outcomes for this course.
 
 ### Course Introduction
 

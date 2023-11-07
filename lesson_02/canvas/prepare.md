@@ -12,7 +12,7 @@ Section | Content
 4   | [Deadlock](#deadlock) :key:
 5   | [Synchronization Tools](#synchronization-tools) :key:
 
-:key: = Vital concepts that we will continue to build on in coming lessons.
+:key: = Vital concepts that we will continue to build on in coming lessons / key learning outcomes for this course.
 
 ### Overview
 

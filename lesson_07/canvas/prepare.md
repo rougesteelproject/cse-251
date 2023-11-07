@@ -10,7 +10,7 @@ Section | Content
 5.2 | [Amdahl's Law Formula](#amdahls-law-formula)
 6   | [Relation to the law of Diminishing Returns](#relation-to-the-law-of-diminishing-returns) :key:
 
-:key: = Vital concepts that we will continue to build on in coming lessons.
+:key: = Vital concepts that we will continue to build on in coming lessons / key learning outcomes for this course.
 
 ### Overview
 
@@ -111,7 +111,7 @@ Here is a breakdown of the previous example:
 
 ---
 
-The `results` variable is a list of *future* work by the process pool. This statement is quick to run as once the list is complete, Python will run the next line in your program. At this point, some of the processes in the pool as been started and is processing the data.
+The `results` variable is a list of *future* work by the process pool. This statement is quick to run as once the list is complete, Python will run the next line in your program. At this point, some of the processes in the pool has been started and is processing the data.
 
 ```python
 results = [pool.apply_async(sum_all_values, args=(x,)) for x in range(10000, 10000 + 10)]

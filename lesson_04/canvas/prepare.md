@@ -15,7 +15,7 @@ Section | Content
 4.1 | [Example 5](#example-5)
 5   | [Semaphores](#semaphores) :key:
 
-:key: = Vital concepts that we will continue to build on in coming lessons.
+:key: = Vital concepts that we will continue to build on in coming lessons / key learning outcomes for this course.
 
 ### Overview
 

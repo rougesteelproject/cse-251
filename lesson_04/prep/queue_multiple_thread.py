@@ -12,7 +12,7 @@ You should think about the following questions and discuss them with your team:
 - Would it be possible to bound the queue in this example?
 - What happens at the hardware level if you change ITEM_COUNT to a big number?
 - What if we used 3 threads? What would we need to change?
-- Remove these lines from your `q.put(None)` code and run again. Why did it deadlock?
+- Remove the 2 `q.put(None)` lines of code and run again. Why did it deadlock?
 """
 
 import queue

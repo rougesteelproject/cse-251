@@ -9,7 +9,7 @@ Your assignment will process a directory full of task files. Each file will cont
 0. To properly setup and run this assignment you will need to do the following:
     - Run the `server.py` program from a terminal/console program; for example type `python server.py` in the console. This server is the same one used for the lesson 2 prove assignment; refer to that assignment's documentation if you need help with the server.
     - Run the Python program **create_tasks.py** once to create the task files for this assignment. You can start with a few tasks for testing but you should run this file again when your ready for all 4034 tasks.
-1. There are 5 different types of tasks that need to be processed. Each type of task needs to  have it's own process pool. The number of processes in each pool is up to you. However, your goal is to process all of the tasks as quickly as possible using these pools. You will need to try out different pool sizes.
+1. There are 5 different types of tasks that need to be processed. Each type of task needs to have it's own process pool. The number of processes in each pool is up to you. However, your goal is to process all of the tasks as quickly as possible using these pools. You will need to try out different pool sizes.
 2. The program should load a task one at a time and add it to the pool that is used to process that task type. You **CAN NOT** load all of the tasks into memory/list and then pass them to a pool.
     - The `task_*` functions contain general logic of what needs to happen
 3. You are required to use the function `apply_async()` for these 5 pools. You **CAN NOT** use `map()`, or any other pool function. You must use callback functions with the `apply_async()` statement.
@@ -65,7 +65,7 @@ Sample Output while using these test tasks files.
 
 ### Rubric
 
-Assignments are not accepted late. Instead, you should submit what you have completed by the due date for partial credit. Assignments are individual and not team based. Any assignments found to be  plagiarized will be graded according to the `ACADEMIC HONESTY` section in the syllabus. The Assignment will be graded in broad categories as outlined in the syllabus.
+Assignments are not accepted late. Instead, you should submit what you have completed by the due date for partial credit. Assignments are individual and not team based. Any assignments found to be plagiarized will be graded according to the `ACADEMIC HONESTY` section in the syllabus. The Assignment will be graded in broad categories as outlined in the syllabus.
 
 ### Submission
 

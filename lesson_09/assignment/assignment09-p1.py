@@ -28,16 +28,25 @@ speed = SLOW_SPEED
 
 # TODO add any functions
 
-def branch(old_position,position):
-    x, y = position
-    old_x, old_y = old_position
-    if at_end_of_maze:
-        pass
-    else:
-        for x_to_try in [x+1, x-1]:
-            for y_to_try in [y+1, y-1]:
-                if (x_to_try, y_to_try) != old_position:
-                    branch((x_to_try,y_to_try))
+def branch(maze, path, position):
+    path.append(position)
+    row, col = position
+
+    maze.move(row, col, COLOR)
+    
+    if maze.at_end(row, col):
+        return True
+    
+    possible_moves = maze.get_possible_moves(row, col)
+    for move in possible_moves:
+        move_row, move_col = move
+        if maze.can_move_here(move_row, move_col):
+            if branch(maze, path, move):
+                return True
+                
+    maze.restore(row, col)
+    path.remove(position)
+    return False
 
 def solve_path(maze):
     """ Solve the maze and return the path found between the start and end positions.  
@@ -45,6 +54,7 @@ def solve_path(maze):
         
     # TODO start add code here
     path = []
+    branch(maze, path, maze.get_start_pos())
     return path
 
 

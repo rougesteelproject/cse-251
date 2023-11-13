@@ -35,7 +35,7 @@ PIPE_EMPTY = 'pipe-empty'
 # No Global variables
 
 class Bag():
-    """ bag of marbles - Don't change """
+    """ Bag of marbles - Don't change """
 
     def __init__(self):
         self.items = []
@@ -50,7 +50,13 @@ class Bag():
         return str(self.items)
 
 class Gift():
-    """ Gift of a large marble and a bag of marbles - Don't change """
+    """
+    Gift of a large marble and a bag of marbles - Don't change
+
+    Parameters:
+        large_marble (string): The name of the large marble for this gift.
+        marbles (Bag): A completed bag of small marbles for this gift.
+    """
 
     def __init__(self, large_marble, marbles):
         self.large_marble = large_marble

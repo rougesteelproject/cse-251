@@ -9,7 +9,7 @@ Purpose: Part 2 of assignment 09, finding the end position in the maze
 Instructions:
 - Do not create classes for this assignment, just functions.
 - Do not use any other Python modules other than the ones included.
-- Each thread requires a different color by calling get_color().
+- Each thread requires a different colour by calling get_colour().
 
 
 This code is not interested in finding a path to the end position,
@@ -18,11 +18,13 @@ change the program to display the found path to the exit position.
 
 What would be your strategy?  
 
-<Answer here>
+Right now, it's setting the final path as a global after each maze, but that's just
+a proof of concept. It could return it or something.
 
 Why would it work?
 
-<Answer here>
+If a thread finds the exit, it'll have the whole path up to that point.
+There's probably a way to do this that's easier on memory.
 
 """
 import math
@@ -36,8 +38,8 @@ import cv2
 from cse251 import *
 
 SCREEN_SIZE = 700
-COLOR = (0, 0, 255)
-COLORS = (
+colour = (0, 0, 255)
+colourS = (
     (0,0,255),
     (0,255,0),
     (255,0,0),
@@ -59,28 +61,57 @@ SLOW_SPEED = 100
 FAST_SPEED = 0
 
 # Globals
-current_color_index = 0
+current_colour_index = 0
 thread_count = 0
 stop = False
 speed = SLOW_SPEED
+path = []
 
-def get_color():
-    """ Returns a different color when called """
-    global current_color_index
-    if current_color_index >= len(COLORS):
-        current_color_index = 0
-    color = COLORS[current_color_index]
-    current_color_index += 1
-    return color
+def get_colour():
+    """ Returns a different colour when called """
+    global current_colour_index
+    if current_colour_index >= len(colourS):
+        current_colour_index = 0
+    colour = colourS[current_colour_index]
+    current_colour_index += 1
+    return colour
+
+def branch(maze, position, temp_path, colour):
+    global stop
+
+    temp_path.append(position)
+    row, col = position
+
+    maze.move(row, col, colour)
+    
+    if maze.at_end(row, col):
+        global path
+        path = temp_path
+        
+        stop = True
+
+    valid_moves = [move for move in maze.get_possible_moves(row,col) if maze.can_move_here(move[0], move[1])]
+    
+    for move in valid_moves:
+        new_colour = colour
+        if valid_moves.index(move) != 0:
+            branch_thread = threading.Thread(target= branch, args = (maze, move, temp_path, get_colour()))
+            branch_thread.start()
+        else:
+            branch(maze, move, temp_path, colour)
+    stop = True
+
+    
+            
 
 def solve_find_end(maze):
     """ finds the end position using threads.  Nothing is returned """
     # When one of the threads finds the end position, stop all of them
     global stop
+    global colour
     stop = False
 
-
-    pass
+    branch(maze, maze.get_start_pos(), [], colour)
 
 
 def find_end(log, filename, delay):

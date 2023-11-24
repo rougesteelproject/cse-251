@@ -65,8 +65,11 @@ BUFFER_SIZE = 10
 READERS = 3
 WRITERS = 3
 
-READ_POS_INDEX = BUFFER_SIZE + 2
-WRITE_POSITION_INDEX = BUFFER_SIZE + 3
+
+WRITE_POSITION_INDEX = BUFFER_SIZE #Stores a value 0-BUFFER, stored at BUFFER+1 (out of the buffer)
+NEXT_VALUE_INDEX = BUFFER_SIZE + 1 #LAST IN, LAST OUT
+READ_POSITION_INDEX = BUFFER_SIZE + 2 #Stores a value 0-BUFFER, stored at BUFFER+3 (out of the buffer)
+RESULT_INDEX = BUFFER_SIZE + 3
 STOP_VAL = -1
 
 def writer_process(end_value, buffer_lock, reading_sem, writing_sem, shared_list):
@@ -77,27 +80,27 @@ def writer_process(end_value, buffer_lock, reading_sem, writing_sem, shared_list
       writing_sem.acquire()
       buffer_lock.acquire()
 
+      #print(f'Sending: {shared_list[NEXT_VALUE_INDEX]}')
+
       # Write the next value to the shared list (circular buffer) or stop if there are no more values.
-      if shared_list[READ_POS_INDEX] >= end_value:
+      if shared_list[NEXT_VALUE_INDEX] > end_value:
         next_value = STOP_VAL
       else:
-        next_value = shared_list[READ_POS_INDEX]
+        next_value = shared_list[NEXT_VALUE_INDEX] #The Value to write, which is stored outside the buffer at NVI
       next_index = shared_list[WRITE_POSITION_INDEX]
-      shared_list[next_index] = next_value
+      shared_list[next_index] = next_value #Writing next_value at next_index
 
-      if next_value == STOP_VAL:
+      if next_value == STOP_VAL: #If we just wrote STOP, then stop
         stop = True
       else:
-        shared_list[READ_POS_INDEX] += 1
+        shared_list[NEXT_VALUE_INDEX] += 1 #Increment the value stored at NVI
         shared_list[WRITE_POSITION_INDEX] = (shared_list[WRITE_POSITION_INDEX] + 1) % BUFFER_SIZE
         #write to shared list
-      # HINT: Uses modulus (%) to always call the correct index number.
+      # HINT: Uses modulus (%) to always call the correct index number. (cycles 0-9, 10=0)
 
       # HINT: You will need to release() the buffer lock and reading semaphore.
       buffer_lock.release()
-      reading_sem.release()
-      
-      
+      reading_sem.release()    
       
 def reader_process(buffer_lock, reading_sem, writing_sem, shared_list):
   stop = False
@@ -107,23 +110,21 @@ def reader_process(buffer_lock, reading_sem, writing_sem, shared_list):
     reading_sem.acquire()
     buffer_lock.acquire()
     #Read (print) the next value from the shared list (circular buffer) or stop if stop flag was received.
-    next_index = shared_list[READ_POS_INDEX]
+    next_index = shared_list[READ_POSITION_INDEX]
     next_value = shared_list[next_index]
     if next_value == STOP_VAL:
       stop = True
     else:
-      shared_list[WRITE_POSITION_INDEX] = next_value
+      shared_list[RESULT_INDEX] = next_value
       print(next_value, end=', ', flush=True)
-      shared_list[READ_POS_INDEX] = (shared_list[READ_POS_INDEX] + 1) % BUFFER_SIZE
+      shared_list[READ_POSITION_INDEX] = (shared_list[READ_POSITION_INDEX] + 1) % BUFFER_SIZE
     #HINT: Uses modulus (%) to always call the correct index number.
 
     # HINT: You will need to release() the buffer lock and writing semaphore.
     buffer_lock.release()
     writing_sem.release()
 
-
 def main():
-
     # This is the number of values that the writer will send to the reader
     items_to_send = random.randint(1000, 10000)
 
@@ -153,14 +154,9 @@ def main():
     end_value = items_to_send
 
     # DONE - create reader and writer processes
-    readers = [0] * READERS
-    for reader in readers:
-      reader = mp.Process(target=reader_process, args=(buffer_lock, reading_sem, writing_sem, shared_list,))
+    readers = [mp.Process(target=reader_process, args=(buffer_lock, reading_sem, writing_sem, shared_list,)) for _ in range(READERS)]
       
-    writers = [0] * WRITERS
-    for writer in writers:
-      writer = mp.Process(target = writer_process, args = (end_value, buffer_lock, reading_sem, writing_sem, shared_list,))
-    
+    writers = [mp.Process(target = writer_process, args = (end_value, buffer_lock, reading_sem, writing_sem, shared_list,)) for _ in range(WRITERS)]
 
     # DONE - Start the processes and wait for them to finish
     for reader in readers:
@@ -180,10 +176,9 @@ def main():
     # DONE - Display the number of numbers/items received by the reader.
     #        Can not use "items_to_send", must be a value collected
     #        by the reader processes.
-    print(f'{shared_list[WRITE_POSITION_INDEX]} values received')
+    print(f'{shared_list[RESULT_INDEX]} values received')
 
     smm.shutdown()
-
 
 if __name__ == '__main__':
     main()

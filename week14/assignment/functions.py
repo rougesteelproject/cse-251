@@ -1,7 +1,7 @@
 """
 Course: CSE 251, week 14
 File: functions.py
-Author: <your name>
+Author: Kyle Parks
 
 Instructions:
 
@@ -63,6 +63,17 @@ import queue
 def depth_fs_pedigree(family_id, tree):
     # KEEP this function even if you don't implement it
     # TODO - implement Depth first retrieval
+    family = tree.get_family(family_id)
+    wife = family.get_wife()
+    tree.add_person(wife)
+    depth_fs_pedigree(wife.get_familyid(), tree)
+    #TODO thread
+    husband = family.get_husband()
+    depth_fs_pedigree(husband.get_familyid(), tree)
+
+
+    # TODO recursive: get mother (recur), then thread(get father)
+    # TODO add person to tree
     # TODO - Printing out people and families that are retrieved from the server will help debugging
 
     pass
@@ -71,6 +82,10 @@ def depth_fs_pedigree(family_id, tree):
 def breadth_fs_pedigree(family_id, tree):
     # KEEP this function even if you don't implement it
     # TODO - implement breadth first retrieval
+    #for each top-level person, get father, mother
+    #TODO how to keep track of who's at the top level
+        #TODO add to a queue, go one at a time?
+        #TODO New thread for the next guy in queue
     # TODO - Printing out people and families that are retrieved from the server will help debugging
 
     pass
@@ -80,6 +95,7 @@ def breadth_fs_pedigree_limit5(family_id, tree):
     # KEEP this function even if you don't implement it
     # TODO - implement breadth first retrieval
     #      - Limit number of concurrent connections to the FS server to 5
+    #TODO Semaphore?
     # TODO - Printing out people and families that are retrieved from the server will help debugging
 
     pass

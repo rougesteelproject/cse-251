@@ -2,7 +2,7 @@
 Course: CSE 251
 Lesson Week: 14
 File: assignment.py
-Author: <your name>
+Author: Kyle Parks
 Purpose: Assignment 14 - Family Search
 """
 import time
@@ -65,6 +65,7 @@ def main():
     data = req.get_response()
     start_id = data['start_family_id']
     print(f'Starting Family id: {start_id}')
+    #Getting all the ancestors from start_id
 
     # load runs.txt
     # part number, number of generations
